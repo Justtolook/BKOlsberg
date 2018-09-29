@@ -18,4 +18,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent (this, DisplayHelpActivity.class);
         startActivity(intent);
     }
+
+    public void btn_favorites(View view) {
+        Intent intent = new Intent (this, DisplayFavoritesActivity.class);
+        startActivity(intent);
+    }
 }

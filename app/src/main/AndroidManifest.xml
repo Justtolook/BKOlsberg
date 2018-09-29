@@ -16,7 +16,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DisplayHelpActivity"></activity>
+        <activity android:name=".DisplayHelpActivity" />
+        <activity
+            android:name=".DisplayFavoritesActivity"
+            android:label="@string/title_activity_display_favorites"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.hlamm.bkolsberg.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
