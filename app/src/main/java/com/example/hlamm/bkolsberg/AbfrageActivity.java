@@ -40,10 +40,11 @@ public class AbfrageActivity extends AppCompatActivity {
     /**
      * Speichert die Question-Objekte
      */
-    private ArrayList<Question> questions = new ArrayList<Question>();
+    private static ArrayList<Question> questions = new ArrayList<Question>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        createQuestionObjects();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_abfrage);
 
@@ -120,11 +121,8 @@ public class AbfrageActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_abfrage, container, false);
-            TextView tvFrage = (TextView) rootView.findViewById(R.id.section_label);
-
-
-
-            tvFrage.setText(getString(R.string.q1));
+            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            textView.setText(questions.get(getArguments().getInt(ARG_SECTION_NUMBER)-1).getQuestion());
 
             return rootView;
         }
@@ -168,13 +166,13 @@ public class AbfrageActivity extends AppCompatActivity {
 
         answer.add(getString(R.string.q2_a1));
         answer.add(getString(R.string.q2_a2));
-        questions.add(new Question(getString(R.string.q1), answer));
+        questions.add(new Question(getString(R.string.q2), answer));
         answer.clear();
 
         answer.add(getString(R.string.q3_a1));
         answer.add(getString(R.string.q3_a2));
         answer.add(getString(R.string.q3_a3));
-        questions.add(new Question(getString(R.string.q1), answer));
+        questions.add(new Question(getString(R.string.q3), answer));
         answer.clear();
 
     }
