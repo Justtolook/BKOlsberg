@@ -18,8 +18,8 @@
         </activity>
         <activity android:name=".DisplayHelpActivity" />
         <activity
-            android:name=".DisplayFavoritesActivity"
-            android:label="@string/title_activity_display_favorites"
+            android:name=".AbfrageActivity"
+            android:label="@string/title_activity_abfrage"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

@@ -4,5 +4,24 @@
     <string name="help_title">Hilfe</string>
     <string name="title_activity_display_favorites">DisplayFavoritesActivity</string>
     <string name="action_settings">Settings</string>
-    <string name="section_format">%1$d</string>
+    <string name="section_format">Frage...</string>
+    <string name="title_activity_abfrage">Abfrage</string>
+
+    <string name="q1">Wofür interessierst du dich?</string>
+    <string name="q2">Welchen Schulabschluss hast du?</string>
+    <string name="q3">Welchen Schulabschluss strebst du an?</string>
+
+
+    <string name="q1_a1">Technik</string>
+    <string name="q1_a2">Handwerk</string>
+    <string name="q1_a3">Umgang mit Kindern</string>
+
+    <string name="q2_a1">Hauptschulabschluss</string>
+    <string name="q2_a2">Mittlere Reife</string>
+
+    <string name="q3_a1">Fachhochschulreife</string>
+    <string name="q3_a2">Hochschulreife</string>
+    <string name="q3_a3">Mittlere Reife</string>
+
+
 </resources>

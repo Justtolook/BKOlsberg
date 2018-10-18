@@ -18,7 +18,9 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
-public class DisplayFavoritesActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class AbfrageActivity extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -35,10 +37,15 @@ public class DisplayFavoritesActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+    /**
+     * Speichert die Question-Objekte
+     */
+    private ArrayList<Question> questions = new ArrayList<Question>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_favorites);
+        setContentView(R.layout.activity_abfrage);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,7 +73,7 @@ public class DisplayFavoritesActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_display_favorites, menu);
+        getMenuInflater().inflate(R.menu.menu_abfrage, menu);
         return true;
     }
 
@@ -111,11 +118,14 @@ public class DisplayFavoritesActivity extends AppCompatActivity {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_display_favorites, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_abfrage, container, false);
+            TextView tvFrage = (TextView) rootView.findViewById(R.id.section_label);
+
+
+
+            tvFrage.setText(getString(R.string.q1));
+
             return rootView;
         }
     }
@@ -142,5 +152,30 @@ public class DisplayFavoritesActivity extends AppCompatActivity {
             // Show 3 total pages.
             return 3;
         }
+    }
+
+    /**
+     * Question-Objekte werden mit Parameter erzeugt und in @questions gespeichert
+     */
+    public void createQuestionObjects() {
+        ArrayList<String> answer = new ArrayList();
+
+        answer.add(getString(R.string.q1_a1));
+        answer.add(getString(R.string.q1_a2));
+        answer.add(getString(R.string.q1_a3));
+        answer.clear();
+        questions.add(new Question(getString(R.string.q1), answer));
+
+        answer.add(getString(R.string.q2_a1));
+        answer.add(getString(R.string.q2_a2));
+        questions.add(new Question(getString(R.string.q1), answer));
+        answer.clear();
+
+        answer.add(getString(R.string.q3_a1));
+        answer.add(getString(R.string.q3_a2));
+        answer.add(getString(R.string.q3_a3));
+        questions.add(new Question(getString(R.string.q1), answer));
+        answer.clear();
+
     }
 }

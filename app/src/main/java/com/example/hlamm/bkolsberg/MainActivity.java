@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import com.example.hlamm.bkolsberg.Question;
+
+import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +17,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    public void btn_abfrage(View view) {
+        Intent intent = new Intent (this, AbfrageActivity.class);
+        startActivity(intent);
+    }
+
     /** Called when the user taps the Help button */
     public void btn_help(View view) {
         Intent intent = new Intent (this, DisplayHelpActivity.class);
@@ -20,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btn_favorites(View view) {
-        Intent intent = new Intent (this, DisplayFavoritesActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent (this, DisplayFavoritesActivity.class);
+        //startActivity(intent);
     }
+
+
 }

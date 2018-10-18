@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="116dp"
         android:elevation="0dp"
+        android:onClick="btn_abfrage"
         android:text="Start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
