@@ -1,5 +1,6 @@
 package com.example.hlamm.bkolsberg;
 
+import android.app.ActionBar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +17,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -48,7 +53,7 @@ public class AbfrageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_abfrage);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Create the adapter that will return a fragment for each of the three
@@ -56,10 +61,10 @@ public class AbfrageActivity extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,9 +126,45 @@ public class AbfrageActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_abfrage, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            ArrayList<TextView> tv_answer = new ArrayList<TextView>();
+            //int iC;
+            //rootView.setContentView(R.layout.activity_abfrage);
+
+
+            LinearLayout linearLayout = rootView.findViewById(R.id.ll_answer);
+
+            TextView tv_question = rootView.findViewById(R.id.tv_question);
+            tv_question.setText(questions.get(getArguments().getInt(ARG_SECTION_NUMBER)-1).getQuestion());
+
+
+            for(int index = 0; index < questions.get(getArguments().getInt(ARG_SECTION_NUMBER)-1).getAnswerSize(); index++){
+                tv_answer.add(new TextView(this.getContext()));
+                tv_answer.get(tv_answer.size()-1).setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+                tv_answer.get(tv_answer.size()-1).setText(questions.get(getArguments().getInt(ARG_SECTION_NUMBER)-1).getAnswer(index));
+                tv_answer.get(tv_answer.size()-1).setPadding(20,20,20,20);
+                linearLayout.addView(tv_answer.get(tv_answer.size()-1));
+            }
+            /*
+            TextView answer1 = new TextView(this.getContext());
+
+            answer1.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+            answer1.setText(questions.get(getArguments().getInt(ARG_SECTION_NUMBER)-1).getAnswer(1));
+            answer1.setPadding(20,20,20,20);
+
+            linearLayout.addView(answer1);
+*/
+
+
+
+
+
+
+            /*TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(questions.get(getArguments().getInt(ARG_SECTION_NUMBER)-1).getQuestion());
 
+            TextView answer = (TextView) rootView.findViewById(R.id.answer);
+            answer.setText(questions.get(getArguments().getInt(ARG_SECTION_NUMBER)-1).getAnswer(1));
+            */
             return rootView;
         }
     }
@@ -161,18 +202,18 @@ public class AbfrageActivity extends AppCompatActivity {
         answer.add(getString(R.string.q1_a1));
         answer.add(getString(R.string.q1_a2));
         answer.add(getString(R.string.q1_a3));
+        questions.add(new Question(getString(R.string.q1), new ArrayList<String>(answer)));
         answer.clear();
-        questions.add(new Question(getString(R.string.q1), answer));
 
         answer.add(getString(R.string.q2_a1));
         answer.add(getString(R.string.q2_a2));
-        questions.add(new Question(getString(R.string.q2), answer));
+        questions.add(new Question(getString(R.string.q2), new ArrayList<String>(answer)));
         answer.clear();
 
         answer.add(getString(R.string.q3_a1));
         answer.add(getString(R.string.q3_a2));
         answer.add(getString(R.string.q3_a3));
-        questions.add(new Question(getString(R.string.q3), answer));
+        questions.add(new Question(getString(R.string.q3), new ArrayList<String>(answer)));
         answer.clear();
 
     }
