@@ -7,6 +7,15 @@
     <string name="section_format">Frage...</string>
     <string name="title_activity_abfrage">Abfrage</string>
 
+    <string name="btn_alle_bildungsgaenge">Alle</string>
+
+
+
+
+
+
+
+
     <string name="q1">Wofür interessierst du dich?</string>
     <string name="q2">Welchen Schulabschluss hast du?</string>
     <string name="q3">Welchen Schulabschluss strebst du an?</string>

@@ -5,32 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    tools:layout_editor_absoluteY="81dp">
+    tools:layout_editor_absoluteY="81dp"
+    android:background="@drawable/homebg">
 
     <ImageView
-        android:id="@+id/logo_bko"
-        android:layout_width="wrap_content"
-        android:layout_height="96dp"
-        android:layout_marginTop="16dp"
-        android:adjustViewBounds="true"
+        android:id="@+id/imageView2"
+        android:layout_width="349dp"
+        android:layout_height="126dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.421"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bkologo" />
+        app:layout_constraintVertical_bias="0.065"
+        app:srcCompat="@drawable/bkologo"
+        tools:srcCompat="@drawable/bkologo" />
 
     <Button
-        android:id="@+id/button"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
-        android:elevation="0dp"
+        android:id="@+id/start_abfrage"
+        style="@android:style/Widget.Material.Button"
+        android:layout_width="162dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="260dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/colorPrimary"
         android:onClick="btn_abfrage"
         android:text="Start"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo_bko" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:textColor="@android:color/white" />
+
+
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -46,14 +58,29 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@android:style/Widget.Material.Button"
+        android:layout_width="139dp"
+        android:layout_height="44dp"
         android:layout_marginTop="88dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/colorSecondary"
         android:onClick="btn_favorites"
         android:text="Favoriten"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintTop_toBottomOf="@+id/start_abfrage" />
+
+    <Button
+        android:id="@+id/button3"
+        style="@android:style/Widget.Material.Light.Button"
+        android:layout_width="139dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="88dp"
+        android:background="@color/colorSecondary"
+        android:text="@string/btn_alle_bildungsgaenge"
+        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintHorizontal_bias="0.097"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/start_abfrage" />
 
 </android.support.constraint.ConstraintLayout>
