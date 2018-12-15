@@ -7,14 +7,14 @@
     <string name="section_format">Frage...</string>
     <string name="title_activity_abfrage">Abfrage</string>
 
+
+
+
     <string name="btn_alle_bildungsgaenge">Alle</string>
 
 
 
-
-
-
-
+    <string name="dauer">Dauer: %1$s Jahre</string>
 
     <string name="q1">Wofür interessierst du dich?</string>
     <string name="q2">Welchen Schulabschluss hast du?</string>

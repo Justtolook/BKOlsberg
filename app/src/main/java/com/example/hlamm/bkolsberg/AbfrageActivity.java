@@ -144,27 +144,7 @@ public class AbfrageActivity extends AppCompatActivity {
                 tv_answer.get(tv_answer.size()-1).setPadding(20,20,20,20);
                 linearLayout.addView(tv_answer.get(tv_answer.size()-1));
             }
-            /*
-            TextView answer1 = new TextView(this.getContext());
 
-            answer1.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-            answer1.setText(questions.get(getArguments().getInt(ARG_SECTION_NUMBER)-1).getAnswer(1));
-            answer1.setPadding(20,20,20,20);
-
-            linearLayout.addView(answer1);
-*/
-
-
-
-
-
-
-            /*TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(questions.get(getArguments().getInt(ARG_SECTION_NUMBER)-1).getQuestion());
-
-            TextView answer = (TextView) rootView.findViewById(R.id.answer);
-            answer.setText(questions.get(getArguments().getInt(ARG_SECTION_NUMBER)-1).getAnswer(1));
-            */
             return rootView;
         }
     }

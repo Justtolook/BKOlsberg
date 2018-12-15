@@ -77,6 +77,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="88dp"
         android:background="@color/colorSecondary"
+        android:onClick="btn_alleBildungsgaenge"
         android:text="@string/btn_alle_bildungsgaenge"
         app:layout_constraintEnd_toStartOf="@+id/button2"
         app:layout_constraintHorizontal_bias="0.097"
