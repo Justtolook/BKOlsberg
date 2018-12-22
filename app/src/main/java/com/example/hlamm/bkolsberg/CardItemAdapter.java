@@ -1,7 +1,6 @@
 package com.example.hlamm.bkolsberg;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +30,7 @@ public class CardItemAdapter extends RecyclerView.Adapter<CardItemAdapter.myView
     @Override
     public void onBindViewHolder(CardItemAdapter.myViewHolder holder, int position) {
 
-        holder.tv_beschreibung.setText("Dauer: " + Float.toString(mData.get(position).getDauer()) + "Jahre");
+        holder.tv_beschreibung.setText("Dauer: " + Float.toString(mData.get(position).getDauer()) + " Jahr/e");
         holder.tv_bezeichnung.setText(mData.get(position).getBezeichnung());
     }
 
