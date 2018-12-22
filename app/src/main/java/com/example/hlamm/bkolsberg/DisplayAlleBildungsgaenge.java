@@ -21,9 +21,7 @@ public class DisplayAlleBildungsgaenge extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_alle_bildungsgaenge);
-
-
-        ArrayList<CardItem> cardItems = new ArrayList<CardItem>();
+        ArrayList<CardItem> cardItems = new ArrayList<>();
 
 
         for(int iC = 0; iC < bildungsgaenge.size(); iC++) {

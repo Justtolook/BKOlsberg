@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     String line=null;
     String result=null;
     String[] data;
+    static boolean bildungsgaengeCreated = false;
     static ArrayList<Bildungsgang> bildungsgaenge = new ArrayList();
 
     @Override
@@ -50,8 +51,10 @@ public class MainActivity extends AppCompatActivity {
         ///lv.setAdapter(adapter);
 
         //DatabaseHelper
-
-        createBildungsgangObjects();
+        if(!bildungsgaengeCreated) {
+            createBildungsgangObjects();
+            bildungsgaengeCreated = true;
+        }
     }
 
     public void btn_abfrage(View view) {
@@ -76,10 +79,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createBildungsgangObjects() {
-        /**
-         * TODO: Bug: bildungsgaenge werden immer weiter hinzugefuegt aber nicht geloescht
-         *
-         */
         bildungsgaenge.add(new Bildungsgang(0, "ITA", 3));
         bildungsgaenge.add(new Bildungsgang(1, "PTA", 3));
         bildungsgaenge.add(new Bildungsgang(2, "PhyTA", 3));
