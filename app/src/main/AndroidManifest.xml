@@ -13,19 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".DisplayHelpActivity" />
-
+        <activity android:name=".DisplayHelpActivity" />
         <activity
             android:name=".AbfrageActivity"
             android:label="@string/title_activity_abfrage"
@@ -35,12 +32,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.hlamm.bkolsberg.MainActivity" />
         </activity>
-
         <activity
             android:name=".DisplayAlleBildungsgaenge"
-            android:parentActivityName=".MainActivity">
-
-        </activity>
+            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".DisplayBildungsgangActivity"></activity>
     </application>
 
 </manifest>

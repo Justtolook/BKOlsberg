@@ -1,5 +1,6 @@
 package com.example.hlamm.bkolsberg;
 
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,5 +37,10 @@ public class DisplayAlleBildungsgaenge extends AppCompatActivity {
         recyclerView.setAdapter(cardItemAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+    }
+
+    public void btn_details(View view) {
+        Intent intent = new Intent(this, DisplayBildungsgangActivity.class);
+        startActivity(intent);
     }
 }
