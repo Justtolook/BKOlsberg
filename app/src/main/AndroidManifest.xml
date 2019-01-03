@@ -22,7 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DisplayHelpActivity" />
+        <activity android:name=".DisplayHelpActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".AbfrageActivity"
             android:label="@string/title_activity_abfrage"
@@ -34,8 +35,8 @@
         </activity>
         <activity
             android:name=".DisplayAlleBildungsgaenge"
-            android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".DisplayBildungsgangActivity"></activity>
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".DisplayBildungsgangActivity"/>
     </application>
 
 </manifest>
