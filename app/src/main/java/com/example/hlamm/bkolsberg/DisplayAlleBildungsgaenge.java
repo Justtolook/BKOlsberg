@@ -17,12 +17,13 @@ import java.util.ArrayList;
 import static com.example.hlamm.bkolsberg.MainActivity.bildungsgaenge;
 
 public class DisplayAlleBildungsgaenge extends AppCompatActivity {
+    ArrayList<CardItem> cardItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_alle_bildungsgaenge);
-        ArrayList<CardItem> cardItems = new ArrayList<>();
+
 
 
         for(int iC = 0; iC < bildungsgaenge.size(); iC++) {
@@ -39,8 +40,15 @@ public class DisplayAlleBildungsgaenge extends AppCompatActivity {
 
     }
 
+    /**
+     * TODO: Show details about the selected Bildungsgang
+     * @param view
+     */
     public void btn_details(View view) {
         Intent intent = new Intent(this, DisplayBildungsgangActivity.class);
         startActivity(intent);
     }
+
+
+
 }

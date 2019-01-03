@@ -8,11 +8,19 @@ public class CardItem {
     String bezeichnung;
     float dauer;
     String beschreibung;
+    boolean favorite;
 
     public CardItem(int id, String bezeichnung, float dauer) {
         this.id = id;
         this.bezeichnung = bezeichnung;
         this.dauer = dauer;
+    }
+
+    public CardItem(int id, String bezeichnung, float dauer, boolean favorite) {
+        this.id = id;
+        this.bezeichnung = bezeichnung;
+        this.dauer = dauer;
+        this.favorite = favorite;
     }
 
     public int getId() {
@@ -31,7 +39,6 @@ public class CardItem {
         this.dauer = dauer;
     }
 
-
     public String getBezeichnung() {
         return bezeichnung;
     }
@@ -46,5 +53,17 @@ public class CardItem {
 
     public void setBeschreibung(String beschreibung) {
         this.beschreibung = beschreibung;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    public void swapFavorite() {
+        this.favorite = !this.favorite;
     }
 }
