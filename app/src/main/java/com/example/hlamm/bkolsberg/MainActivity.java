@@ -1,6 +1,7 @@
 package com.example.hlamm.bkolsberg;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     String[] data;
     static boolean bildungsgaengeCreated = false;
     static ArrayList<Bildungsgang> bildungsgaenge = new ArrayList();
+    static final String SHARED_PREFS_FAV = "sharedPrefsFavorites";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,10 @@ public class MainActivity extends AppCompatActivity {
         if(!bildungsgaengeCreated) {
             createBildungsgangObjects();
             bildungsgaengeCreated = true;
+            loadDataFavorite();
         }
+        updateData();
+
     }
 
     public void btn_abfrage(View view) {
@@ -147,4 +152,34 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * TODO: Update data straight after tapping on the star-button
+     *      current Status: Updates when returning back to MainActivity
+     * This function saves the as favorite marked Bildungsgaenge in a SharedPreferences-File
+     */
+    public void updateData() {
+        int i;
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS_FAV, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        for(i = 0; i < bildungsgaenge.size(); i++) {
+            editor.putBoolean(String.valueOf(bildungsgaenge.get(i).getId()), bildungsgaenge.get(i).isFavorit());
+        }
+        editor.commit();    //writes changes asynchronically to improve performance
+    }
+
+    /**
+     * Loads which Bildungsgaenge favorites are and applies that to the specific object
+     */
+    public void loadDataFavorite() {
+        int i;
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS_FAV, MODE_PRIVATE);
+        for(i = 0; i < bildungsgaenge.size(); i++) {
+            int id = bildungsgaenge.get(i).getId();
+            /**
+             * key: @id (id of the bildungsgang)
+             */
+            bildungsgaenge.get(id).setFavorit(sharedPreferences.getBoolean(String.valueOf(id), false));
+        }
+
+    }
 }

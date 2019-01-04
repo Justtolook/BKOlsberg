@@ -1,5 +1,6 @@
 package com.example.hlamm.bkolsberg;
 
+import static com.example.hlamm.bkolsberg.MainActivity.bildungsgaenge;
 /**
  * Klasse fuer das Layout-objekt "card_item.xml"
  */
@@ -65,5 +66,6 @@ public class CardItem {
 
     public void swapFavorite() {
         this.favorite = !this.favorite;
+        bildungsgaenge.get(id).setFavorit(this.favorite);   //Aenderung wird an das Bildungsgangobjekt weitergeleitet
     }
 }
