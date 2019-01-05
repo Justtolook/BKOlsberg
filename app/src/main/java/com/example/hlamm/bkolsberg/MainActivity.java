@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btn_favorites(View view) {
-        //Intent intent = new Intent (this, DisplayFavoritesActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent (this, DisplayFavoritesActivity.class);
+        startActivity(intent);
     }
 
     public void btn_alleBildungsgaenge(View view) {

@@ -1,11 +1,15 @@
 <resources>
+    <!-- Label -->
     <string name="app_name">BKOlsberg</string>
     <string name="favorites_title">Favoriten</string>
     <string name="help_title">Hilfe</string>
+    <string name="abfrage_title">Abfrage</string>
+    <string name="bildungsgaenge_title">Bildungsgänge</string>
+
     <string name="title_activity_display_favorites">DisplayFavoritesActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Frage...</string>
-    <string name="title_activity_abfrage">Abfrage</string>
+
 
 
     <string name="btn_alle_bildungsgaenge">Alle</string>
