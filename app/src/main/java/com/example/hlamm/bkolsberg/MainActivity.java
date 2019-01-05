@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myDb = new DatabaseHelper(this);
-        ///lv=(ListView) findViewById(R.id.listView1);
+
         //Allow Network in main thread
         StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
 
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
         for(i = 0; i < bildungsgaenge.size(); i++) {
             editor.putBoolean(String.valueOf(bildungsgaenge.get(i).getId()), bildungsgaenge.get(i).isFavorit());
         }
-        editor.commit();    //writes changes asynchronically to improve performance
+        editor.commit();    //writes changes - asynchronically to improve performance
     }
 
     /**
@@ -183,3 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
+
+
+
+
