@@ -11,7 +11,6 @@ import android.widget.ListView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import static com.example.hlamm.bkolsberg.MainActivity.myDb;
 
 import java.io.IOException;
 
@@ -19,14 +18,14 @@ public class DisplayHelpActivity extends AppCompatActivity {
 
     JSONArray ja;
     String url="https://bkoapp.cyka-bly.at/java-scripts/SelectAbschluss.php";
-    MainActivity.myDb
+    DatabaseHelper myDb;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_help);
-
+         myDb= new DatabaseHelper(this);
         final ListView lv= (ListView) findViewById(R.id.lv);
         final Downloader d=new Downloader(this,url,lv);
 
@@ -53,8 +52,9 @@ public class DisplayHelpActivity extends AppCompatActivity {
                         jo=ja.getJSONObject(i);
                         String Bezeichnung=jo.getString("Bezeichnung");
                         String Bildungsstufe=jo.getString("Bildungsstufe");
-                    }
 
+                    }
+                    myDb.hinzufuegen("hallo");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
