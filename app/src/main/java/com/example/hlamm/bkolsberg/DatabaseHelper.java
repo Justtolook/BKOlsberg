@@ -41,9 +41,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void hinzufuegen()
+    public void hinzufuegen(String befehl)
     {
         //JSONArray ja
-        db.execSQL("CREATE TABLE test(ID_Abschluss INTEGER PRIMARY KEY AUTOINCREMENT,Bezeichnung TEXT,Bildungsstufe INTEGER)");
+        db=this.getWritableDatabase();
+        db.execSQL("INSERT INTO Abschluss(Bezeichnung,Bildungsstufe) VALUES(test,test)");
     }
 }
