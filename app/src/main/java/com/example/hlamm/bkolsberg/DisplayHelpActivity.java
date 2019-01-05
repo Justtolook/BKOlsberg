@@ -11,6 +11,7 @@ import android.widget.ListView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import static com.example.hlamm.bkolsberg.MainActivity.myDb;
 
 import java.io.IOException;
 
@@ -18,6 +19,8 @@ public class DisplayHelpActivity extends AppCompatActivity {
 
     JSONArray ja;
     String url="https://bkoapp.cyka-bly.at/java-scripts/SelectAbschluss.php";
+    MainActivity.myDb
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,6 @@ public class DisplayHelpActivity extends AppCompatActivity {
         final Downloader d=new Downloader(this,url,lv);
 
         Button b = (Button) findViewById(R.id.button4);
-        Button b2=(Button) findViewById(R.id.button5);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,24 +38,26 @@ public class DisplayHelpActivity extends AppCompatActivity {
                 //d.execute();
                 String test;
                 test=d.downloadData2();
-                Log.d("test",test);
 
-                /*try {
-                ja = d.getArray();
+                try
+                {
+                    //ADD THAT DATA TO JSON ARRAY FIRST
+                    ja=new JSONArray(test);
 
-                JSONObject jo = null;
+                    //CREATE JO OBJ TO HOLD A SINGLE ITEM
+                    JSONObject jo=null;
 
-                for (int i = 0; i < ja.length(); i++) {
-                    jo = ja.getJSONObject(i);
+                    //LOOP THRU ARRAY
+                    for(int i=0;i<ja.length();i++)
+                    {
+                        jo=ja.getJSONObject(i);
+                        String Bezeichnung=jo.getString("Bezeichnung");
+                        String Bildungsstufe=jo.getString("Bildungsstufe");
+                    }
 
-                    String name = jo.getString("Bezeichnung");
-                    Log.d("Test", name);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }*/
-
             }
         });
 
