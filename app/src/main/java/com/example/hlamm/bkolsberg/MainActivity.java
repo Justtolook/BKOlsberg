@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-    DatabaseHelper myDb;
+    public static DatabaseHelper myDb;
    /// ListView lv;
     ArrayAdapter<String> adapter;
     String address="http://bkoapp.cyka-bly.at/android/fetch.php";
@@ -33,9 +33,12 @@ public class MainActivity extends AppCompatActivity {
     String line=null;
     String result=null;
     String[] data;
+
+    public static  int test=1;
     static boolean bildungsgaengeCreated = false;
     static ArrayList<Bildungsgang> bildungsgaenge = new ArrayList();
     static final String SHARED_PREFS_FAV = "sharedPrefsFavorites";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
