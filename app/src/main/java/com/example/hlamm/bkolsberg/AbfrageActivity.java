@@ -17,11 +17,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+
 
 import java.util.ArrayList;
 
@@ -126,45 +127,25 @@ public class AbfrageActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_abfrage, container, false);
-            ArrayList<TextView> tv_answer = new ArrayList<TextView>();
-            //int iC;
-            //rootView.setContentView(R.layout.activity_abfrage);
-
-
-            LinearLayout linearLayout = rootView.findViewById(R.id.ll_answer);
-
+            RadioGroup radioGroup = rootView.findViewById(R.id.answerRadioGroup);
             TextView tv_question = rootView.findViewById(R.id.tv_question);
+            ArrayList<RadioButton> radioButtons = new ArrayList<>();
+
+            /**
+             * Fragetext festlegen
+             */
             tv_question.setText(questions.get(getArguments().getInt(ARG_SECTION_NUMBER)-1).getQuestion());
 
-
+            /**
+             * RadioButtons erstellen und mit Antworttext fuellen
+             */
             for(int index = 0; index < questions.get(getArguments().getInt(ARG_SECTION_NUMBER)-1).getAnswerSize(); index++){
-                tv_answer.add(new TextView(this.getContext()));
-                tv_answer.get(tv_answer.size()-1).setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-                tv_answer.get(tv_answer.size()-1).setText(questions.get(getArguments().getInt(ARG_SECTION_NUMBER)-1).getAnswer(index));
-                tv_answer.get(tv_answer.size()-1).setPadding(20,20,20,20);
-                linearLayout.addView(tv_answer.get(tv_answer.size()-1));
+                radioButtons.add(new RadioButton(this.getContext()));
+                radioButtons.get(index).setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+                radioButtons.get(index).setText(questions.get(getArguments().getInt(ARG_SECTION_NUMBER)-1).getAnswer(index));
+                radioGroup.addView(radioButtons.get(index));
             }
-            /*
-            TextView answer1 = new TextView(this.getContext());
 
-            answer1.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-            answer1.setText(questions.get(getArguments().getInt(ARG_SECTION_NUMBER)-1).getAnswer(1));
-            answer1.setPadding(20,20,20,20);
-
-            linearLayout.addView(answer1);
-*/
-
-
-
-
-
-
-            /*TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(questions.get(getArguments().getInt(ARG_SECTION_NUMBER)-1).getQuestion());
-
-            TextView answer = (TextView) rootView.findViewById(R.id.answer);
-            answer.setText(questions.get(getArguments().getInt(ARG_SECTION_NUMBER)-1).getAnswer(1));
-            */
             return rootView;
         }
     }

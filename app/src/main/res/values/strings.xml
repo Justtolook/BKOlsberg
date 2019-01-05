@@ -1,11 +1,22 @@
 <resources>
+    <!-- Label -->
     <string name="app_name">BKOlsberg</string>
     <string name="favorites_title">Favoriten</string>
     <string name="help_title">Hilfe</string>
+    <string name="abfrage_title">Abfrage</string>
+    <string name="bildungsgaenge_title">Bildungsgänge</string>
+
     <string name="title_activity_display_favorites">DisplayFavoritesActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Frage...</string>
-    <string name="title_activity_abfrage">Abfrage</string>
+
+    <!-- Error -->
+    <string name="error_no_favorites">Error: Keine Favoriten ausgewählt!</string>
+
+    <string name="btn_alle_bildungsgaenge">Alle</string>
+
+
+    <string name="dauer">Dauer: %1$s Jahre</string>
 
     <string name="q1">Wofür interessierst du dich?</string>
     <string name="q2">Welchen Schulabschluss hast du?</string>

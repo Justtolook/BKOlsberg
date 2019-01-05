@@ -1,6 +1,7 @@
 package com.example.hlamm.bkolsberg;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,7 +33,12 @@ public class MainActivity extends AppCompatActivity {
     String line=null;
     String result=null;
     String[] data;
+
     public static  int test=1;
+    static boolean bildungsgaengeCreated = false;
+    static ArrayList<Bildungsgang> bildungsgaenge = new ArrayList();
+    static final String SHARED_PREFS_FAV = "sharedPrefsFavorites";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
         ///lv.setAdapter(adapter);
 
         //DatabaseHelper
+        if(!bildungsgaengeCreated) {
+            createBildungsgangObjects();
+            bildungsgaengeCreated = true;
+            loadDataFavorite();
+        }
+        updateData();
 
     }
 
@@ -65,8 +77,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btn_favorites(View view) {
-        //Intent intent = new Intent (this, DisplayFavoritesActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent (this, DisplayFavoritesActivity.class);
+        startActivity(intent);
+    }
+
+    public void btn_alleBildungsgaenge(View view) {
+        Intent intent = new Intent(this, DisplayAlleBildungsgaenge.class);
+        startActivity(intent);
+    }
+
+    public void createBildungsgangObjects() {
+        bildungsgaenge.add(new Bildungsgang(0, "ITA", 3));
+        bildungsgaenge.add(new Bildungsgang(1, "PTA", 3));
+        bildungsgaenge.add(new Bildungsgang(2, "PhyTA", 3));
+        bildungsgaenge.add(new Bildungsgang(3, "BTA", 3));
+        bildungsgaenge.add(new Bildungsgang(4, "CTA", 3));
     }
 
     public void OnLogin(View view){
@@ -130,4 +155,34 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * TODO: Update data straight after tapping on the star-button
+     *      current Status: Updates when returning back to MainActivity
+     * This function saves the as favorite marked Bildungsgaenge in a SharedPreferences-File
+     */
+    public void updateData() {
+        int i;
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS_FAV, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        for(i = 0; i < bildungsgaenge.size(); i++) {
+            editor.putBoolean(String.valueOf(bildungsgaenge.get(i).getId()), bildungsgaenge.get(i).isFavorit());
+        }
+        editor.commit();    //writes changes asynchronically to improve performance
+    }
+
+    /**
+     * Loads which Bildungsgaenge favorites are and applies that to the specific object
+     */
+    public void loadDataFavorite() {
+        int i;
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS_FAV, MODE_PRIVATE);
+        for(i = 0; i < bildungsgaenge.size(); i++) {
+            int id = bildungsgaenge.get(i).getId();
+            /**
+             * key: @id (id of the bildungsgang)
+             */
+            bildungsgaenge.get(id).setFavorit(sharedPreferences.getBoolean(String.valueOf(id), false));
+        }
+
+    }
 }
