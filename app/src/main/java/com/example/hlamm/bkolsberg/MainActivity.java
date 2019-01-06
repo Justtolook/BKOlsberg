@@ -25,7 +25,6 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-    public static DatabaseHelper myDb;
    /// ListView lv;
     ArrayAdapter<String> adapter;
     String address="http://bkoapp.cyka-bly.at/android/fetch.php";
@@ -44,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        myDb = new DatabaseHelper(this);
-
+        ///lv=(ListView) findViewById(R.id.listView1);
         //Allow Network in main thread
         StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
 
@@ -186,7 +184,3 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
-
-
-
-
