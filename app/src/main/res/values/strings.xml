@@ -13,7 +13,10 @@
     <!-- Error -->
     <string name="error_no_favorites">Error: Keine Favoriten ausgewählt!</string>
 
+    <!-- Button -->
+    <string name="btn_start_abfrage">Start</string>
     <string name="btn_alle_bildungsgaenge">Alle</string>
+    <string name="btn_favoriten">Favoriten</string>
 
 
     <string name="dauer">Dauer: %1$s Jahre</string>
