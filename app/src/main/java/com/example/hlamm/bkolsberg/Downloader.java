@@ -18,133 +18,44 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class Downloader extends AsyncTask<Void,Integer,String> {
+public class Downloader  {
 
-    Context c;
     String address;
-    ListView lv;
 
-    ProgressDialog pd;
-    JSONArray ja;
-
-    public Downloader(Context c, String address, ListView lv) {
-        this.c = c;
+    public Downloader(String address) {
         this.address = address;
-        this.lv = lv;
     }
 
-    //B4 JOB STARTS
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
 
-        pd=new ProgressDialog(c);
-        pd.setTitle("Fetch Data");
-        pd.setMessage("Fetching Data...Please wait");
-        pd.show();
-    }
-
-    @Override
-    protected String doInBackground(Void... params) {
-        String data=downloadData();
-        return data;
-    }
-
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-
-        pd.dismiss();;
-
-        if(s != null)
-        {
-            Parser p=new Parser(c,s,lv);
-            p.execute();
-            ja=p.getArray();
-        }else
-        {
-            Toast.makeText(c,"Unable to download data",Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-    private String downloadData()
+    protected String downloadData()
     {
         //connect and get a stream
         InputStream is=null;
         String line =null;
 
         try {
-            URL url=new URL(address);
-            HttpURLConnection con= (HttpURLConnection) url.openConnection();
-            is=new BufferedInputStream(con.getInputStream());
+                URL url=new URL(address);
+                HttpURLConnection con= (HttpURLConnection) url.openConnection();
+                is=new BufferedInputStream(con.getInputStream());
 
-            BufferedReader br=new BufferedReader(new InputStreamReader(is));
+                BufferedReader br=new BufferedReader(new InputStreamReader(is));
 
-            StringBuffer sb=new StringBuffer();
+                StringBuffer sb=new StringBuffer();
 
-            if(br != null) {
+                if(br != null)
+                {
+                    while ((line=br.readLine()) != null)
+                    {
+                        sb.append(line+"\n");
+                    }
 
-                while ((line=br.readLine()) != null) {
-                    sb.append(line+"\n");
+                }else {
+                    return null;
                 }
 
-            }else {
-                return null;
+                return sb.toString();
             }
-
-            return sb.toString();
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            if(is != null)
-            {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return null;
-    }
-
-    protected JSONArray getArray()
-    {
-        return ja;
-    }
-
-    protected String downloadData2()
-    {
-        //connect and get a stream
-        InputStream is=null;
-        String line =null;
-
-        try {
-            URL url=new URL(address);
-            HttpURLConnection con= (HttpURLConnection) url.openConnection();
-            is=new BufferedInputStream(con.getInputStream());
-
-            BufferedReader br=new BufferedReader(new InputStreamReader(is));
-
-            StringBuffer sb=new StringBuffer();
-
-            if(br != null) {
-
-                while ((line=br.readLine()) != null) {
-                    sb.append(line+"\n");
-                }
-
-            }else {
-                return null;
-            }
-
-            return sb.toString();
-
-        } catch (MalformedURLException e) {
+        catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
