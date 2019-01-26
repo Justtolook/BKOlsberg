@@ -14,8 +14,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-import com.example.hlamm.bkolsberg.Question;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btn_abfrage(View view) {
-        Intent intent = new Intent (this, AbfrageActivity.class);
+        Intent intent = new Intent (this, DisplayAbfrageActivity.class);
         startActivity(intent);
     }
 
@@ -165,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         for(i = 0; i < bildungsgaenge.size(); i++) {
             editor.putBoolean(String.valueOf(bildungsgaenge.get(i).getId()), bildungsgaenge.get(i).isFavorit());
         }
-        editor.commit();    //writes changes - asynchronically to improve performance
+        editor.apply();    //writes changes - asynchronically to improve performance
     }
 
     /**

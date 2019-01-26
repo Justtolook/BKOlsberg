@@ -24,28 +24,20 @@
         </activity>
         <activity
             android:name=".DisplayHelpActivity"
-            android:parentActivityName=".MainActivity"
-            android:label="@string/help_title"/>
-        <activity
-            android:name=".AbfrageActivity"
-            android:parentActivityName=".MainActivity"
-            android:label="@string/abfrage_title"
-            android:theme="@style/AppTheme.NoActionBar">
-            <!--
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.hlamm.bkolsberg.MainActivity" />
-                -->
-        </activity>
+            android:label="@string/help_title"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".DisplayAlleBildungsgaenge"
-            android:parentActivityName=".MainActivity"
-            android:label="@string/bildungsgaenge_title"/>
+            android:label="@string/bildungsgaenge_title"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".DisplayBildungsgangActivity" />
         <activity
             android:name=".DisplayFavoritesActivity"
-            android:parentActivityName=".MainActivity"
-            android:label="@string/favorites_title"/>
+            android:label="@string/favorites_title"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".DisplayAbfrageActivity"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>
