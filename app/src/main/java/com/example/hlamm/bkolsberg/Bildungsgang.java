@@ -7,6 +7,7 @@ public class Bildungsgang {
     private String bezeichnung;
     private float dauer;
     private boolean favorit;
+    private String kuerzel; //TODO get() set() konstruktor updaten
     private ArrayList<Abschluss> AbschlussNeeded;
     private ArrayList<Zusatzqualifikation> ZusatzqualifikationNeeded;
     private ArrayList<Abschluss> Abschluss;

@@ -8,10 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
-i
 import java.util.ArrayList;
 
-
+//TODO: Interessen Klasse
 public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
 
