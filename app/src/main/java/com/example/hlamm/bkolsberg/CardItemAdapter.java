@@ -1,6 +1,8 @@
 package com.example.hlamm.bkolsberg;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +46,23 @@ public class CardItemAdapter extends RecyclerView.Adapter<CardItemAdapter.myView
         }
     };
 
+    /**
+     * Opens DisplayBildugnsgangActivity for the selected Bildungsgang
+     */
+    private View.OnClickListener onClickListenerDetail = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) v.getTag();
+            int position = viewHolder.getAdapterPosition();
+            Intent intent = new Intent(mContext, DisplayBildungsgangActivity.class);
+            Bundle b = new Bundle();
+            b.putInt("id", mData.get(position).getId());
+            intent.putExtras(b);
+            mContext.startActivity(intent);
+
+        }
+    };
+
 
     public CardItemAdapter(Context mContext, List<CardItem> mData) {
         this.mContext = mContext;
@@ -83,6 +102,8 @@ public class CardItemAdapter extends RecyclerView.Adapter<CardItemAdapter.myView
         public myViewHolder(View itemView) {
             super(itemView);
             tv_bezeichnung = itemView.findViewById(R.id.bezeichnung);
+            tv_bezeichnung.setTag(this);
+            tv_bezeichnung.setOnClickListener(onClickListenerDetail);
             tv_beschreibung = itemView.findViewById(R.id.beschreibung);
             btn_markAsFavorite = itemView.findViewById(R.id.btn_MarkAsFavorite);
             btn_markAsFavorite.setTag(this);

@@ -29,6 +29,24 @@ public class Bildungsgang {
         this.favorit = false;
     }
 
+    public Bildungsgang(int id,
+                        String bezeichnung,
+                        float dauer,
+                        String kuerzel,
+                        ArrayList<com.example.hlamm.bkolsberg.Abschluss> abschlussNeeded,
+                        ArrayList<com.example.hlamm.bkolsberg.Zusatzqualifikation> zusatzqualifikationNeeded,
+                        ArrayList<com.example.hlamm.bkolsberg.Abschluss> abschluss,
+                        ArrayList<com.example.hlamm.bkolsberg.Zusatzqualifikation> zusatzqualifikation) {
+        this.id = id;
+        this.bezeichnung = bezeichnung;
+        this.dauer = dauer;
+        this.kuerzel = kuerzel;
+        AbschlussNeeded = abschlussNeeded;
+        ZusatzqualifikationNeeded = zusatzqualifikationNeeded;
+        Abschluss = abschluss;
+        Zusatzqualifikation = zusatzqualifikation;
+    }
+
     public int getId() {
         return id;
     }
@@ -59,6 +77,14 @@ public class Bildungsgang {
 
     public void setFavorit(boolean favorit) {
         this.favorit = favorit;
+    }
+
+    public String getKuerzel() {
+        return kuerzel;
+    }
+
+    public void setKuerzel(String kuerzel) {
+        this.kuerzel = kuerzel;
     }
 
     public ArrayList<Abschluss> getAbschlussNeeded() {
