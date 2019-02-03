@@ -20,6 +20,7 @@ public class Question {
     public Question(String question, ArrayList<String> answer) {
         this.question = question;
         this.answer = answer;
+        this.answerSelected = -1; //none is selected
     }
 
     public void setQuestion(String question) {

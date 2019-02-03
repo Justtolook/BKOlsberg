@@ -15,11 +15,12 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
 
-    static boolean bildungsgaengeCreated = false;
+    static boolean objectsInitialized = false;
     static ArrayList<Bildungsgang> bildungsgaenge = new ArrayList();
     static ArrayList<Abschluss> abschluesse = new ArrayList<>();
     static ArrayList<Zusatzqualifikation> quali = new ArrayList<>();
     static ArrayList<Interesse> interessen = new ArrayList<>();
+    static ArrayList<Question> questions = new ArrayList<>();
     static final String SHARED_PREFS_FAV = "sharedPrefsFavorites";
     DatabaseHelper myDb;
 
@@ -48,12 +49,13 @@ public class MainActivity extends AppCompatActivity {
         myDb.insert_erreicht();
 
 
-        if(!bildungsgaengeCreated) {
+        if(!objectsInitialized) {
             createAbschlussObjects();
             createQualiObjects();
             createBildungsgangObjects();
-            createInteressen();
-            bildungsgaengeCreated = true;
+            createInteressenObjects();
+            createQuestionObjects();
+            objectsInitialized = true;
             loadDataFavorite();
         }
         updateData();
@@ -103,8 +105,33 @@ public class MainActivity extends AppCompatActivity {
         quali.add(new Zusatzqualifikation(0, "QC"));
     }
 
-    public void createInteressen() {
+    public void createInteressenObjects() {
         interessen = myDb.getInteressen();
+    }
+
+    /**
+     * Question-Objekte werden mit Parameter erzeugt und in @questions gespeichert
+     */
+    public void createQuestionObjects() {
+        ArrayList<String> answer = new ArrayList();
+
+        answer.add(getString(R.string.q1_a1));
+        answer.add(getString(R.string.q1_a2));
+        answer.add(getString(R.string.q1_a3));
+        questions.add(new Question(getString(R.string.q1), new ArrayList<>(answer)));
+        answer.clear();
+
+        answer.add(getString(R.string.q2_a1));
+        answer.add(getString(R.string.q2_a2));
+        questions.add(new Question(getString(R.string.q2), new ArrayList<>(answer)));
+        answer.clear();
+
+        answer.add(getString(R.string.q3_a1));
+        answer.add(getString(R.string.q3_a2));
+        answer.add(getString(R.string.q3_a3));
+        questions.add(new Question(getString(R.string.q3), new ArrayList<>(answer)));
+        answer.clear();
+
     }
 
 

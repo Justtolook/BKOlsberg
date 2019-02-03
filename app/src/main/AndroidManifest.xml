@@ -14,6 +14,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".DisplayAuswertungActivity"
+            android:label="@string/auswertung_title"
+            android:parentActivityName=".DisplayAbfrageActivity"/>
+        <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -37,7 +41,7 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".DisplayAbfrageActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>
