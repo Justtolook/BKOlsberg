@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-//TODO: Interessen Klasse
+//TODO: Interesse Klasse
 public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
 
@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     static ArrayList<Bildungsgang> bildungsgaenge = new ArrayList();
     static ArrayList<Abschluss> abschluesse = new ArrayList<>();
     static ArrayList<Zusatzqualifikation> quali = new ArrayList<>();
+    static ArrayList<Interesse> interessen = new ArrayList<>();
     static final String SHARED_PREFS_FAV = "sharedPrefsFavorites";
     DatabaseHelper myDb;
 
@@ -30,6 +31,13 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
 
         myDb= new DatabaseHelper(this);
+
+        /**
+         * TODO: Inserts überarbeiten
+         * Insert funktionen nur ausführen, wenn lokale Datenbank veraltet ist
+         * Eventuell in den Databasehelp verschieben
+         * Vor den Einfügen, erst Datensätze löschen
+         */
         myDb.insert_Abschluss();
         myDb.insert_benoetigt();
         myDb.insert_Bildungsgang();
@@ -44,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
             createAbschlussObjects();
             createQualiObjects();
             createBildungsgangObjects();
+            createInteressen();
             bildungsgaengeCreated = true;
             loadDataFavorite();
         }
@@ -77,9 +86,10 @@ public class MainActivity extends AppCompatActivity {
         bildungsgaenge.add(new Bildungsgang(1, "PTA", 3));
         bildungsgaenge.add(new Bildungsgang(2, "PhyTA", 3));
         bildungsgaenge.add(new Bildungsgang(3, "BTA", 3));
-        bildungsgaenge.add(new Bildungsgang(4, "CTA", 3));*/
+        bildungsgaenge.add(new Bildungsgang(4, "CTA", 3));
         bildungsgaenge.add(new Bildungsgang(5, "FO3N", 1, "FO3N", abschluesse, quali, abschluesse, quali));
-        bildungsgaenge.add(new Bildungsgang(23, "Informationstechnischer Assistent", 3,"ITA", abschluesse, quali, abschluesse, quali));
+        bildungsgaenge.add(new Bildungsgang(23, "Informationstechnischer Assistent", 3,"ITA", abschluesse, quali, abschluesse, quali));*/
+        bildungsgaenge = myDb.getBildungsgaenge();
     }
 
     public void createAbschlussObjects() {
@@ -91,6 +101,10 @@ public class MainActivity extends AppCompatActivity {
     public void createQualiObjects() {
         quali.add(new Zusatzqualifikation(1, "Berufsausbildung"));
         quali.add(new Zusatzqualifikation(0, "QC"));
+    }
+
+    public void createInteressen() {
+        interessen = myDb.getInteressen();
     }
 
 

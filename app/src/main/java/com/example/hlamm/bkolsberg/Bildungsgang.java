@@ -1,5 +1,6 @@
 package com.example.hlamm.bkolsberg;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 public class Bildungsgang {
@@ -7,11 +8,15 @@ public class Bildungsgang {
     private String bezeichnung;
     private float dauer;
     private boolean favorit;
-    private String kuerzel; //TODO get() set() konstruktor updaten
-    private ArrayList<Abschluss> AbschlussNeeded;
-    private ArrayList<Zusatzqualifikation> ZusatzqualifikationNeeded;
-    private ArrayList<Abschluss> Abschluss;
-    private ArrayList<Zusatzqualifikation> Zusatzqualifikation;
+    private String kuerzel;
+    private String beschreibung;
+    private URL url;
+    private ArrayList<Abschluss> abschlussNeeded;
+    private ArrayList<Zusatzqualifikation> zusatzqualifikationNeeded;
+    private ArrayList<Abschluss> abschluss;
+    private ArrayList<Zusatzqualifikation> zusatzqualifikation;
+    private ArrayList<Interesse> interessen;
+    //TODO: Beschreibung und URL (URI) zur Webseitenvorstellung
 
     public Bildungsgang() {
     }
@@ -33,18 +38,40 @@ public class Bildungsgang {
                         String bezeichnung,
                         float dauer,
                         String kuerzel,
-                        ArrayList<com.example.hlamm.bkolsberg.Abschluss> abschlussNeeded,
-                        ArrayList<com.example.hlamm.bkolsberg.Zusatzqualifikation> zusatzqualifikationNeeded,
-                        ArrayList<com.example.hlamm.bkolsberg.Abschluss> abschluss,
-                        ArrayList<com.example.hlamm.bkolsberg.Zusatzqualifikation> zusatzqualifikation) {
+                        ArrayList<Abschluss> abschlussNeeded,
+                        ArrayList<Zusatzqualifikation> zusatzqualifikationNeeded,
+                        ArrayList<Abschluss> abschluss,
+                        ArrayList<Zusatzqualifikation> zusatzqualifikation) {
         this.id = id;
         this.bezeichnung = bezeichnung;
         this.dauer = dauer;
         this.kuerzel = kuerzel;
-        AbschlussNeeded = abschlussNeeded;
-        ZusatzqualifikationNeeded = zusatzqualifikationNeeded;
-        Abschluss = abschluss;
-        Zusatzqualifikation = zusatzqualifikation;
+        this.abschlussNeeded = abschlussNeeded;
+        this.zusatzqualifikationNeeded = zusatzqualifikationNeeded;
+        this.abschluss = abschluss;
+        this.zusatzqualifikation = zusatzqualifikation;
+    }
+
+    public Bildungsgang(int id,
+                        String bezeichnung,
+                        float dauer,
+                        boolean favorit,
+                        String kuerzel,
+                        ArrayList<Abschluss> abschlussNeeded,
+                        ArrayList<Zusatzqualifikation> zusatzqualifikationNeeded,
+                        ArrayList<Abschluss> abschluss,
+                        ArrayList<Zusatzqualifikation> zusatzqualifikation,
+                        ArrayList<Interesse> interessen) {
+        this.id = id;
+        this.bezeichnung = bezeichnung;
+        this.dauer = dauer;
+        this.favorit = favorit;
+        this.kuerzel = kuerzel;
+        this.abschlussNeeded = abschlussNeeded;
+        this.zusatzqualifikationNeeded = zusatzqualifikationNeeded;
+        this.abschluss = abschluss;
+        this.zusatzqualifikation = zusatzqualifikation;
+        this.interessen = interessen;
     }
 
     public int getId() {
@@ -88,35 +115,40 @@ public class Bildungsgang {
     }
 
     public ArrayList<Abschluss> getAbschlussNeeded() {
-        return AbschlussNeeded;
+        return abschlussNeeded;
     }
 
     public void setAbschlussNeeded(ArrayList<Abschluss> abschlussNeeded) {
-        AbschlussNeeded = abschlussNeeded;
+        this.abschlussNeeded = abschlussNeeded;
     }
 
     public ArrayList<Zusatzqualifikation> getZusatzqualifikationNeeded() {
-        return ZusatzqualifikationNeeded;
+        return zusatzqualifikationNeeded;
     }
 
     public void setZusatzqualifikationNeeded(ArrayList<Zusatzqualifikation> zusatzqualifikationNeeded) {
-        ZusatzqualifikationNeeded = zusatzqualifikationNeeded;
+        this.zusatzqualifikationNeeded = zusatzqualifikationNeeded;
     }
 
     public ArrayList<Abschluss> getAbschluss() {
-        return Abschluss;
+        return abschluss;
     }
 
     public void setAbschluss(ArrayList<Abschluss> abschluss) {
-        Abschluss = abschluss;
+        this.abschluss = abschluss;
     }
 
     public ArrayList<Zusatzqualifikation> getZusatzqualifikation() {
-        return Zusatzqualifikation;
+        return zusatzqualifikation;
     }
 
     public void setZusatzqualifikation(ArrayList<Zusatzqualifikation> zusatzqualifikation) {
-        Zusatzqualifikation = zusatzqualifikation;
+        this.zusatzqualifikation = zusatzqualifikation;
+    }
+
+    @Override
+    public String toString() {
+        return "Bildungsgang [ID=" + id + ", bezeichnung=" + bezeichnung + ", dauer=" + dauer + "]";
     }
 
 
@@ -125,6 +157,7 @@ public class Bildungsgang {
 class Abschluss {
     private int id;
     private String bezeichnung;
+    private int level;
 
     public Abschluss() {
     }
@@ -134,6 +167,12 @@ class Abschluss {
         this.bezeichnung = bezeichnung;
     }
 
+    public Abschluss(int id, String bezeichnung, int level) {
+        this.id = id;
+        this.bezeichnung = bezeichnung;
+        this.level = level;
+    }
+
     public int getId() {
         return id;
     }
@@ -149,11 +188,20 @@ class Abschluss {
     public void setBezeichnung(String bezeichnung) {
         this.bezeichnung = bezeichnung;
     }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 }
 
 class Zusatzqualifikation {
     private int id;
     private String bezeichnung;
+    private int level;
 
     public Zusatzqualifikation() {
     }
@@ -163,6 +211,12 @@ class Zusatzqualifikation {
         this.bezeichnung = bezeichnung;
     }
 
+    public Zusatzqualifikation(int id, String bezeichnung, int level) {
+        this.id = id;
+        this.bezeichnung = bezeichnung;
+        this.level = level;
+    }
+
     public int getId() {
         return id;
     }
@@ -177,5 +231,48 @@ class Zusatzqualifikation {
 
     public void setBezeichnung(String bezeichnung) {
         this.bezeichnung = bezeichnung;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+}
+
+class Interesse {
+    private int id;
+    private String bezeichnung;
+
+    public Interesse() {
+
+    }
+
+    public Interesse(int id, String bezeichnung) {
+        this.id = id;
+        this.bezeichnung = bezeichnung;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getBezeichnung() {
+        return bezeichnung;
+    }
+
+    public void setBezeichnung(String bezeichnung) {
+        this.bezeichnung = bezeichnung;
+    }
+
+    @Override
+    public String toString() {
+        return "Interesse[id=" + id + ", bezeichnung=" + bezeichnung + "]";
     }
 }

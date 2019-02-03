@@ -43,13 +43,4 @@ public class DisplayFavoritesActivity extends AppCompatActivity {
         //Error-Message if user did not chose favorites
         if(!favorites_exist) Toast.makeText(getApplicationContext(), getString(R.string.error_no_favorites), Toast.LENGTH_LONG).show();
     }
-
-    /**
-     * TODO: Show details about the selected Bildungsgang
-     * @param view
-     */
-    /*public void btn_details(View view) {
-        Intent intent = new Intent(this, DisplayBildungsgangActivity.class);
-        startActivity(intent);
-    }*/
 }
