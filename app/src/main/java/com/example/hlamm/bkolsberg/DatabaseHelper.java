@@ -2,14 +2,16 @@ package com.example.hlamm.bkolsberg;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -43,8 +45,61 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " +TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " +TABLE_NAME); //TODO: Warum wird nur Table (Abschluss) gedropt? Immerhin werden danach bei onCreate alle Tabellen neu erstellt
         onCreate(db);
+    }
+
+
+    /**
+     * Creates Bildungsgang Objects based from the data of the database and returns them in an Array
+     * @return ArrayList of Bildungsgang
+     */
+    public ArrayList<Bildungsgang> getBildungsgaenge() {
+        ArrayList<Bildungsgang> bildungsgaenge = new ArrayList<>();
+        String query = "SELECT * FROM Bildungsgang";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        Bildungsgang bildungsgang = null;
+        if(cursor.moveToFirst()) {
+            do {
+                //TODO: andere Merkmale erhalten
+                bildungsgang = new Bildungsgang();
+                bildungsgang.setId(Integer.parseInt(cursor.getString(0)));
+                bildungsgang.setBezeichnung(cursor.getString(1));
+                bildungsgang.setDauer(Float.parseFloat(cursor.getString(2)));
+                bildungsgaenge.add(bildungsgang);
+                Log.d("getBildungsgaeng()", bildungsgang.toString());
+            } while(cursor.moveToNext());
+        }
+
+        Log.d("getBildungsgaenge()", bildungsgaenge.toString());
+        return bildungsgaenge;
+    }
+
+    /**
+     * Creates Interesse Objects based from the data of the database and returns them in an Array
+     * @return ArrayList of Interessen
+     */
+    public ArrayList<Interesse> getInteressen() {
+        ArrayList<Interesse> interessen = new ArrayList<>();
+        String query = "SELECT * FROM Interessen";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        Interesse interesse = null;
+        if(cursor.moveToFirst()) {
+            do {
+                interesse = new Interesse();
+                interesse.setId(Integer.parseInt(cursor.getString(0)));
+                interesse.setBezeichnung(cursor.getString(1));
+                interessen.add(interesse);
+                Log.d("getInteressen()", interesse.toString());
+            } while(cursor.moveToNext());
+        }
+        return interessen;
     }
 
     public void insert_Abschluss()

@@ -8,14 +8,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-//TODO: Interessen Klasse
+//TODO: Interesse Klasse
 public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
 
-    static boolean bildungsgaengeCreated = false;
+    static boolean objectsInitialized = false;
     static ArrayList<Bildungsgang> bildungsgaenge = new ArrayList();
+    static ArrayList<Abschluss> abschluesse = new ArrayList<>();
+    static ArrayList<Zusatzqualifikation> quali = new ArrayList<>();
+    static ArrayList<Interesse> interessen = new ArrayList<>();
+    static ArrayList<Question> questions = new ArrayList<>();
     static final String SHARED_PREFS_FAV = "sharedPrefsFavorites";
     DatabaseHelper myDb;
 
@@ -27,6 +32,13 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
 
         myDb= new DatabaseHelper(this);
+
+        /**
+         * TODO: Inserts überarbeiten
+         * Insert funktionen nur ausführen, wenn lokale Datenbank veraltet ist
+         * Eventuell in den Databasehelp verschieben
+         * Vor den Einfügen, erst Datensätze löschen
+         */
         myDb.insert_Abschluss();
         myDb.insert_benoetigt();
         myDb.insert_Bildungsgang();
@@ -37,9 +49,13 @@ public class MainActivity extends AppCompatActivity {
         myDb.insert_erreicht();
 
 
-        if(!bildungsgaengeCreated) {
+        if(!objectsInitialized) {
+            createAbschlussObjects();
+            createQualiObjects();
             createBildungsgangObjects();
-            bildungsgaengeCreated = true;
+            createInteressenObjects();
+            createQuestionObjects();
+            objectsInitialized = true;
             loadDataFavorite();
         }
         updateData();
@@ -68,11 +84,54 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createBildungsgangObjects() {
-        bildungsgaenge.add(new Bildungsgang(0, "ITA", 3));
+        /*bildungsgaenge.add(new Bildungsgang(0, "ITA", 3));
         bildungsgaenge.add(new Bildungsgang(1, "PTA", 3));
         bildungsgaenge.add(new Bildungsgang(2, "PhyTA", 3));
         bildungsgaenge.add(new Bildungsgang(3, "BTA", 3));
         bildungsgaenge.add(new Bildungsgang(4, "CTA", 3));
+        bildungsgaenge.add(new Bildungsgang(5, "FO3N", 1, "FO3N", abschluesse, quali, abschluesse, quali));
+        bildungsgaenge.add(new Bildungsgang(23, "Informationstechnischer Assistent", 3,"ITA", abschluesse, quali, abschluesse, quali));*/
+        bildungsgaenge = myDb.getBildungsgaenge();
+    }
+
+    public void createAbschlussObjects() {
+        abschluesse.add(new Abschluss(0, "MOR"));
+        abschluesse.add(new Abschluss(1, "OR"));
+
+    }
+
+    public void createQualiObjects() {
+        quali.add(new Zusatzqualifikation(1, "Berufsausbildung"));
+        quali.add(new Zusatzqualifikation(0, "QC"));
+    }
+
+    public void createInteressenObjects() {
+        interessen = myDb.getInteressen();
+    }
+
+    /**
+     * Question-Objekte werden mit Parameter erzeugt und in @questions gespeichert
+     */
+    public void createQuestionObjects() {
+        ArrayList<String> answer = new ArrayList();
+
+        answer.add(getString(R.string.q1_a1));
+        answer.add(getString(R.string.q1_a2));
+        answer.add(getString(R.string.q1_a3));
+        questions.add(new Question(getString(R.string.q1), new ArrayList<>(answer)));
+        answer.clear();
+
+        answer.add(getString(R.string.q2_a1));
+        answer.add(getString(R.string.q2_a2));
+        questions.add(new Question(getString(R.string.q2), new ArrayList<>(answer)));
+        answer.clear();
+
+        answer.add(getString(R.string.q3_a1));
+        answer.add(getString(R.string.q3_a2));
+        answer.add(getString(R.string.q3_a3));
+        questions.add(new Question(getString(R.string.q3), new ArrayList<>(answer)));
+        answer.clear();
+
     }
 
 
@@ -102,8 +161,21 @@ public class MainActivity extends AppCompatActivity {
             /**
              * key: @id (id of the bildungsgang)
              */
-            bildungsgaenge.get(id).setFavorit(sharedPreferences.getBoolean(String.valueOf(id), false));
+            bildungsgaenge.get(searchBildungsgang(id)).setFavorit(sharedPreferences.getBoolean(String.valueOf(id), false));
         }
 
+    }
+
+    /**
+     * Returns Bildungsgang-Index in bildungsgaenge-Array to given ID
+     * @param id ID of Bildungsgang
+     * @return Array Index of searched Bildungsgang
+     */
+    public static int searchBildungsgang(int id) {
+        int i;
+        for(i = 0; i < bildungsgaenge.size(); i++) {
+            if(bildungsgaenge.get(i).getId() == id) return i;
+        }
+        return 99; //TODO: find better solution if bildungsgang not found
     }
 }

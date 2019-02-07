@@ -5,6 +5,7 @@
     <string name="help_title">Hilfe</string>
     <string name="abfrage_title">Abfrage</string>
     <string name="bildungsgaenge_title">Bildungsgänge</string>
+    <string name="auswertung_title">Vorschlaege</string>
 
     <string name="title_activity_display_favorites">DisplayFavoritesActivity</string>
     <string name="action_settings">Settings</string>

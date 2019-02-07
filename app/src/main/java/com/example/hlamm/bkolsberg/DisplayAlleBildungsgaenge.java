@@ -40,12 +40,4 @@ public class DisplayAlleBildungsgaenge extends AppCompatActivity {
 
     }
 
-    /**
-     * TODO: Show details about the selected Bildungsgang
-     * @param view
-     */
-    public void btn_details(View view) {
-        Intent intent = new Intent(this, DisplayBildungsgangActivity.class);
-        startActivity(intent);
-    }
 }
