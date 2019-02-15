@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -22,12 +21,12 @@ public class CardItemAdapter extends RecyclerView.Adapter<CardItemAdapter.myView
      * Activated if user clicks on the card.
      * Opens up @DisplayBildungsgangActivtiy for specific Bildungsgang
      */
-    private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+    /*private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         }
-    };
+    };*/
 
 
     /**
