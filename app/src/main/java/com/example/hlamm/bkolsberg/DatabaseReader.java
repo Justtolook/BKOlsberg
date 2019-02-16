@@ -93,14 +93,20 @@ public class DatabaseReader extends SQLiteOpenHelper {
     {
         int result=0;
         String query="Select * FROM Updat";
-        Cursor cursor = db.rawQuery(query,null);
-        while(cursor.moveToNext())
+        try
         {
-            result=cursor.getInt(1);
+            Cursor cursor = db.rawQuery(query,null);
+            while(cursor.moveToNext())
+            {
+                result=cursor.getInt(1);
+            }
+            cursor.close();
         }
-        cursor.close();
+        catch(Exception e)
+        {
+        }
+
         db.close();
-        Log.d("test",Integer.toString(result));
         return result;
     }
 }
