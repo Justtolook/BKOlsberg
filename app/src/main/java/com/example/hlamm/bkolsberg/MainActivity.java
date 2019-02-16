@@ -88,9 +88,9 @@ public class MainActivity extends AppCompatActivity {
         bildungsgaenge.add(new Bildungsgang(1, "PTA", 3));
         bildungsgaenge.add(new Bildungsgang(2, "PhyTA", 3));
         bildungsgaenge.add(new Bildungsgang(3, "BTA", 3));
-        bildungsgaenge.add(new Bildungsgang(4, "CTA", 3));
-        bildungsgaenge.add(new Bildungsgang(5, "FO3N", 1, "FO3N", abschluesse, quali, abschluesse, quali));
-        bildungsgaenge.add(new Bildungsgang(23, "Informationstechnischer Assistent", 3,"ITA", abschluesse, quali, abschluesse, quali));*/
+        bildungsgaenge.add(new Bildungsgang(4, "CTA", 3));*/
+        //bildungsgaenge.add(new Bildungsgang(5, "FO3N", 1, "FO3N", abschluesse, quali, abschluesse, quali));
+        //bildungsgaenge.add(new Bildungsgang(23, "Informationstechnischer Assistent", 3,"ITA", abschluesse, quali, abschluesse, quali));
         bildungsgaenge = myDb.getBildungsgaenge();
     }
 
@@ -154,9 +154,8 @@ public class MainActivity extends AppCompatActivity {
      * Loads which Bildungsgaenge favorites are and applies that to the specific object
      */
     public void loadDataFavorite() {
-        int i;
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS_FAV, MODE_PRIVATE);
-        for(i = 0; i < bildungsgaenge.size(); i++) {
+        for(int i = 0; i < bildungsgaenge.size(); i++) {
             int id = bildungsgaenge.get(i).getId();
             /**
              * key: @id (id of the bildungsgang)

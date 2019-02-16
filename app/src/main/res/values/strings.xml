@@ -22,6 +22,7 @@
     <string name="btn_back">Zurück</string>
     <string name="btn_send">Auswertung</string>
 
+    <string name="text_Auswertung">Folgende Bildungsgänge entsprechen deiner Auswahl:</string>
 
     <string name="dauer">Dauer: %1$s Jahre</string>
 
