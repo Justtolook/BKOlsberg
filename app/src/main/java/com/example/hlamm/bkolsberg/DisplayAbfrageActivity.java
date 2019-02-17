@@ -3,6 +3,7 @@ package com.example.hlamm.bkolsberg;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -14,15 +15,24 @@ import java.util.ArrayList;
 
 import static com.example.hlamm.bkolsberg.MainActivity.questions;
 
+//TODO: Progressbar/counter
+//TODO: Resetbutton
 public class DisplayAbfrageActivity extends AppCompatActivity {
     /**
      * Speichert die Question-Objekte
      */
     //private ArrayList<Question> questions = new ArrayList<>();
     private int position = 0;
-    private RadioGroup radioGroup;
+    /**
+     * allowDataChange:
+     * It gives the allowance, whether the selected answer of the question can be changed due to
+     * a checkedChanged-Event.
+     * It invokes a change of selected answer from the selection reset in updateView()
+     */
+    private boolean allowDataChange;
+    private static RadioGroup radioGroup;
     private TextView tv_question;
-    private ArrayList<RadioButton> radioButtons = new ArrayList<>();
+    private static ArrayList<RadioButton> radioButtons = new ArrayList<>();
     private Button btn_next;
     private Button btn_back;
     private Button btn_send;
@@ -45,7 +55,7 @@ public class DisplayAbfrageActivity extends AppCompatActivity {
         btn_back = findViewById(R.id.btn_back);
         btn_next = findViewById(R.id.btn_next);
         btn_send = findViewById(R.id.btn_send);
-        selection = new int[questions.size()];
+        //selection = new int[questions.size()];
 
         /** btn_back */
         btn_back.setOnClickListener(new View.OnClickListener() {
@@ -71,9 +81,15 @@ public class DisplayAbfrageActivity extends AppCompatActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                questions.get(position).setAnswerSelected(checkedId);
+                if(allowDataChange) {
+                    questions.get(position).setAnswerSelected(checkedId);
+                    Log.d("Selection " + position + " changed to: ", Integer.toString(checkedId));
+                }
+
                 if(isAbfrageComplete()) btn_send.setVisibility(View.VISIBLE);
                 else btn_send.setVisibility(View.INVISIBLE);
+                Log.d("Position: ", Integer.toString(position));
+                Log.d("User: AnswerSelected: ", Integer.toString(checkedId));
             }
         });
     }
@@ -111,9 +127,12 @@ public class DisplayAbfrageActivity extends AppCompatActivity {
         /**
          * Fragetext festlegen
          */
+        allowDataChange = false;
         tv_question.setText(questions.get(position).getQuestion());
         radioGroup.clearCheck();
         radioGroup.removeAllViews();
+        radioButtons.clear();
+
 
         /**
          * RadioButtons erstellen und mit Antworttext fuellen
@@ -121,11 +140,16 @@ public class DisplayAbfrageActivity extends AppCompatActivity {
         for(int index = 0; index < questions.get(position).getAnswerSize(); index++){
             radioButtons.add(new RadioButton(getApplicationContext()));
             radioButtons.get(index).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            radioButtons.get(index).setId(index);
             radioButtons.get(index).setText(questions.get(position).getAnswer(index));
             radioGroup.addView(radioButtons.get(index));
+            //Log.d("index: ", Integer.toString(index));
+            //Log.d("radioButton: ", Integer.toString(radioButtons.get(index).getId()));
         }
         //radioGroup.check(selection[position]);
         radioGroup.check(questions.get(position).getAnswerSelected());
+        Log.d("AnswerSelected: ", Integer.toString(questions.get(position).getAnswerSelected()));
+        allowDataChange = true;
     }
 
 
