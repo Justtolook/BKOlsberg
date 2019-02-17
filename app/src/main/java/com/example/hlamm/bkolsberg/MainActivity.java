@@ -2,9 +2,10 @@ package com.example.hlamm.bkolsberg;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     static ArrayList<Question> questions = new ArrayList<>();
     static final String SHARED_PREFS_FAV = "sharedPrefsFavorites";
     DatabaseHelper myDb;
+    DatabaseReader myRd;
 
 
     @Override
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
 
         myDb= new DatabaseHelper(this);
+        myDb.insert_all();
+        myRd= new DatabaseReader(this);
 
         /**
          * TODO: Inserts überarbeiten
@@ -39,14 +43,9 @@ public class MainActivity extends AppCompatActivity {
          * Eventuell in den Databasehelp verschieben
          * Vor den Einfügen, erst Datensätze löschen
          */
-        myDb.insert_Abschluss();
-        myDb.insert_benoetigt();
-        myDb.insert_Bildungsgang();
-        myDb.insert_erhaelt();
-        myDb.insert_Interessen();
-        myDb.insert_nuetzlichFuer();
-        myDb.insert_Zusatzqualifikation();
-        myDb.insert_erreicht();
+        //Log.d("test", Integer.toString(myRd.getUpdat()));
+        myDb.update_exists(myRd.getUpdat());
+
 
 
         if(!objectsInitialized) {
@@ -84,14 +83,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createBildungsgangObjects() {
-        /*bildungsgaenge.add(new Bildungsgang(0, "ITA", 3));
-        bildungsgaenge.add(new Bildungsgang(1, "PTA", 3));
-        bildungsgaenge.add(new Bildungsgang(2, "PhyTA", 3));
-        bildungsgaenge.add(new Bildungsgang(3, "BTA", 3));
-        bildungsgaenge.add(new Bildungsgang(4, "CTA", 3));*/
-        //bildungsgaenge.add(new Bildungsgang(5, "FO3N", 1, "FO3N", abschluesse, quali, abschluesse, quali));
-        //bildungsgaenge.add(new Bildungsgang(23, "Informationstechnischer Assistent", 3,"ITA", abschluesse, quali, abschluesse, quali));
-        bildungsgaenge = myDb.getBildungsgaenge();
+        myRd= new DatabaseReader(this);
+        Cursor cursor=myRd.getBildungsgang();
+        while(cursor.moveToNext())
+        {
+            int result_0=cursor.getInt(0);
+            String result_1=cursor.getString(1);
+            int result_2=cursor.getInt(3);
+            bildungsgaenge.add(new Bildungsgang(result_0, result_1, result_2));
+        }
     }
 
     public void createAbschlussObjects() {

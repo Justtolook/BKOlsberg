@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "BKOapp.db";
-    private static final String TABLE_NAME = "Abschluss";
+    private static final String TABLE_NAME = "Bildungsgang";
     JSONArray ja;
     String url=null;
     String data=null;
@@ -33,20 +33,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE Abschluss(ID_Abschluss INTEGER PRIMARY KEY AUTOINCREMENT,Bezeichnung TEXT,Bildungsstufe INTEGER)");
-        db.execSQL("CREATE TABLE Bildungsgang(ID_Bildungsgang INTEGER PRIMARY KEY AUTOINCREMENT, Bezeichnung TEXT, Dauer INTEGER)");
+        db.execSQL("CREATE TABLE Bildungsgang(ID_Bildungsgang INTEGER PRIMARY KEY AUTOINCREMENT, Bezeichnung TEXT,Kuerzel Text,Beschreibung Text ,URL Text,Dauer INTEGER)");
         db.execSQL("CREATE TABLE benoetigt (ID_Bildungsgang INTEGER,ID_Abschluss INTEGER,ID_Zusatzqualifikation INTEGER)");
         db.execSQL("CREATE TABLE erhaelt(ID_Zusatzqualifikation INETEGER, ID_Bildungsgang INTEGER)");
         db.execSQL("CREATE TABLE erreicht(ID_Bildungsgang INTEGER,ID_Abschluss INTEGER)");
         db.execSQL("CREATE TABLE Interessen(ID_Interessen INTEGER PRIMARY KEY AUTOINCREMENT, Beschreibung TEXT)");
         db.execSQL("CREATE TABLE nuetzlichFuer(ID_Interessen INTEGER,ID_Bildungsgang INTEGER)");
         db.execSQL("CREATE TABLE Zusatzqualifikation(ID_Zusatzqualifikation INTEGER PRIMARY KEY, Bezeichnung TEXT )");
+        db.execSQL("CREATE TABLE Updat(ID_updat INTEGER PRIMARY KEY AUTOINCREMENT, Wert INTEGER)");
     }
 
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " +TABLE_NAME); //TODO: Warum wird nur Table (Abschluss) gedropt? Immerhin werden danach bei onCreate alle Tabellen neu erstellt
+    public void onUpgrade(SQLiteDatabase db, int actualVersion, int newVersion) {
+        Log.d("Datenbank: ","Lösch die Tabellen");
+        db.execSQL("DROP TABLE IF EXISTS Abschluss");
+        db.execSQL("DROP TABLE IF EXISTS Bildungsgang");
+        db.execSQL("DROP TABLE IF EXISTS benoetigt");
+        db.execSQL("DROP TABLE IF EXISTS erhaelt");
+        db.execSQL("DROP TABLE IF EXISTS erreicht");
+        db.execSQL("DROP TABLE IF EXISTS Interessen");
+        db.execSQL("DROP TABLE IF EXISTS nuetzlichFuer");
+        db.execSQL("DROP TABLE IF EXISTS Zusatzqualifikation");
+        db.execSQL("DROP TABLE IF EXISTS Bildungsgang");
+        db.execSQL("DROP TABLE IF EXISTS updat");
         onCreate(db);
+        insert_all();
+        contentValues = new ContentValues();
+        contentValues.put("Wert",newVersion);
+        this.getWritableDatabase().insertOrThrow("Updat","",contentValues);
     }
 
 
@@ -102,6 +117,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return interessen;
     }
 
+    public void insert_all()
+    {
+        insert_Abschluss();
+        insert_benoetigt();
+        insert_Bildungsgang();
+        insert_erhaelt();
+        insert_Interessen();
+        insert_nuetzlichFuer();
+        insert_Zusatzqualifikation();
+        insert_erreicht();
+    }
+
     public void insert_Abschluss()
     {
         url="https://bkoapp.cyka-bly.at/java-scripts/SelectAbschluss.php";
@@ -142,9 +169,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             {
                 jo=ja.getJSONObject(i);
                 String bezeichnung=jo.getString("Bezeichnung");
+                String kuerzel=jo.getString("Kuerzel");
+                String beschreibung=jo.getString("Beschreibung");
+                String URL=jo.getString("URL");
                 String dauer=jo.getString("Dauer");
+
                 contentValues = new ContentValues();
                 contentValues.put("Bezeichnung",bezeichnung);
+                contentValues.put("Kuerzel",kuerzel);
+                contentValues.put("Beschreibung",beschreibung);
+                contentValues.put("URL",URL);
                 contentValues.put("Dauer",dauer);
                 this.getWritableDatabase().insertOrThrow("Bildungsgang","",contentValues);
             }
@@ -295,6 +329,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 contentValues = new ContentValues();
                 contentValues.put("Bezeichnung",bezeichnung);
                 this.getWritableDatabase().insertOrThrow("Zusatzqualifikation","",contentValues);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update_exists(int actualVersion)
+    {
+        url="https://bkoapp.cyka-bly.at/java-scripts/updat.php";
+        d=new Downloader(url);
+        data=d.downloadData();
+
+        try
+        {
+            ja=new JSONArray(data);
+            JSONObject jo=null;
+            int newVersion=0;
+            for(int i=0;i<ja.length();i++)
+            {
+                jo=ja.getJSONObject(i);
+                newVersion=jo.getInt("Wert");                     //neuer Wert aus MySQL
+            }
+            if(actualVersion==0)                                  //falls vorher noch keine updat Tabelle in der SQLite des Smartphones vorhaden war
+            {
+                contentValues = new ContentValues();
+                contentValues.put("Wert",newVersion);
+                this.getWritableDatabase().insertOrThrow("Updat","",contentValues);
+            }
+            else
+            {
+                if (!(actualVersion == newVersion)) {
+                    onUpgrade(db, actualVersion, newVersion);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
