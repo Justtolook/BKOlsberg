@@ -59,9 +59,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS updat");
         onCreate(db);
         insert_all();
-        contentValues = new ContentValues();
-        contentValues.put("Wert",newVersion);
-        this.getWritableDatabase().insertOrThrow("Updat","",contentValues);
     }
 
 
@@ -127,6 +124,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insert_nuetzlichFuer();
         insert_Zusatzqualifikation();
         insert_erreicht();
+        insert_Updat();
     }
 
     public void insert_Abschluss()
@@ -335,6 +333,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void insert_Updat()
+    {
+        url="https://bkoapp.cyka-bly.at/java-scripts/updat.php";
+        d=new Downloader(url);
+        data=d.downloadData();
+
+        try
+        {
+            ja=new JSONArray(data);
+            JSONObject jo=null;
+            int newVersion=0;
+            for(int i=0;i<ja.length();i++)
+            {
+                jo = ja.getJSONObject(i);
+                newVersion = jo.getInt("Wert");                     //neuer Wert aus MySQL
+            }
+                contentValues = new ContentValues();
+                contentValues.put("Wert",newVersion);
+                this.getWritableDatabase().insertOrThrow("Updat","",contentValues);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void update_exists(int actualVersion)
     {
         url="https://bkoapp.cyka-bly.at/java-scripts/updat.php";
@@ -351,18 +374,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 jo=ja.getJSONObject(i);
                 newVersion=jo.getInt("Wert");                     //neuer Wert aus MySQL
             }
-            if(actualVersion==0)                                  //falls vorher noch keine updat Tabelle in der SQLite des Smartphones vorhaden war
-            {
-                contentValues = new ContentValues();
-                contentValues.put("Wert",newVersion);
-                this.getWritableDatabase().insertOrThrow("Updat","",contentValues);
-            }
-            else
-            {
                 if (!(actualVersion == newVersion)) {
                     onUpgrade(db, actualVersion, newVersion);
                 }
-            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

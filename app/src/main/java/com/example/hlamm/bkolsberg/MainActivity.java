@@ -34,8 +34,17 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
 
         myDb= new DatabaseHelper(this);
-        myDb.insert_all();
         myRd= new DatabaseReader(this);
+        if(myRd.getUpdat()==0)
+        {
+            myDb.insert_all();
+        }
+        else
+        {
+            myDb.update_exists(myRd.getUpdat());
+        }
+
+
 
         /**
          * TODO: Inserts überarbeiten
@@ -44,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
          * Vor den Einfügen, erst Datensätze löschen
          */
         //Log.d("test", Integer.toString(myRd.getUpdat()));
-        myDb.update_exists(myRd.getUpdat());
 
 
 
