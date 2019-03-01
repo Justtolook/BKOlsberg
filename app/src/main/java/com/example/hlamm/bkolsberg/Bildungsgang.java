@@ -55,7 +55,6 @@ public class Bildungsgang {
     public Bildungsgang(int id,
                         String bezeichnung,
                         float dauer,
-                        boolean favorit,
                         String kuerzel,
                         ArrayList<Abschluss> abschlussNeeded,
                         ArrayList<Zusatzqualifikation> zusatzqualifikationNeeded,
@@ -67,11 +66,13 @@ public class Bildungsgang {
         this.dauer = dauer;
         this.favorit = favorit;
         this.kuerzel = kuerzel;
+        //this.url = url;
         this.abschlussNeeded = abschlussNeeded;
         this.zusatzqualifikationNeeded = zusatzqualifikationNeeded;
         this.abschluss = abschluss;
         this.zusatzqualifikation = zusatzqualifikation;
         this.interessen = interessen;
+        this.favorit = false;
     }
 
     public int getId() {
@@ -112,6 +113,14 @@ public class Bildungsgang {
 
     public void setKuerzel(String kuerzel) {
         this.kuerzel = kuerzel;
+    }
+
+    public ArrayList<Interesse> getInteressenNeeded() {
+        return interessen;
+    }
+
+    public void setInteressenNeeded(ArrayList<Abschluss> InteressenNeeded) {
+        this.abschlussNeeded = abschlussNeeded;
     }
 
     public ArrayList<Abschluss> getAbschlussNeeded() {

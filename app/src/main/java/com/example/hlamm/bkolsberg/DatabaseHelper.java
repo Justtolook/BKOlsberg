@@ -358,8 +358,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void update_exists(int actualVersion)
+    public void update_exists()
     {
+        int actualVersion=getUpdat();
         url="https://bkoapp.cyka-bly.at/java-scripts/updat.php";
         d=new Downloader(url);
         data=d.downloadData();
@@ -375,10 +376,120 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 newVersion=jo.getInt("Wert");                     //neuer Wert aus MySQL
             }
                 if (!(actualVersion == newVersion)) {
+                    Log.d("test",actualVersion+" "+newVersion);
                     onUpgrade(db, actualVersion, newVersion);
                 }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getUpdat()
+    {
+        int result=0;
+        String query="Select * FROM Updat";
+        //try
+        //{
+        Cursor cursor = db.rawQuery(query,null);
+        while(cursor.moveToNext())
+        {
+            result=cursor.getInt(1);
+        }
+        cursor.close();
+        //}
+        //catch(Exception e)
+        //{
+
+        //}
+        return result;
+    }
+
+    public Cursor getBildungsgang()
+    {
+        String query="Select * FROM Bildungsgang";
+        Cursor cursor = db.rawQuery(query,null);
+
+        return cursor;
+    }
+
+    public ArrayList<Abschluss> getAbschlussErhalt(int id)
+    {
+        ArrayList<Abschluss> Abschluss= new ArrayList<Abschluss>();
+        String query=   "Select a.ID_Abschluss, a.Bezeichnung " +
+                "FROM Abschluss a, erreicht e, Bildungsgang b " +
+                "WHERE e.ID_Abschluss=a.ID_Abschluss AND e.ID_Bildungsgang=b.ID_Bildungsgang AND b.ID_Bildungsgang="+id;
+        Cursor cursor = db.rawQuery(query,null);
+        while(cursor.moveToNext())
+        {
+            Abschluss a = new Abschluss(cursor.getInt(0),cursor.getString(1));
+            Abschluss.add(a);
+        }
+        cursor.close();
+        return Abschluss;
+    }
+
+    public ArrayList<Abschluss> getAbschlussNoetig(int id)
+    {
+        ArrayList<Abschluss> Abschluss= new ArrayList<Abschluss>();
+        String query=   "Select a.ID_Abschluss, a.Bezeichnung " +
+                "FROM Abschluss  a, benoetigt  be, Bildungsgang  b " +
+                "WHERE be.ID_Abschluss=a.ID_Abschluss AND b.ID_Bildungsgang=be.ID_Bildungsgang AND b.ID_Bildungsgang="+id;
+        Cursor cursor = db.rawQuery(query,null);
+        while(cursor.moveToNext())
+        {
+            Abschluss a = new Abschluss(cursor.getInt(0),cursor.getString(1));
+            Abschluss.add(a);
+        }
+        cursor.close();
+        return Abschluss;
+    }
+
+    public ArrayList<Zusatzqualifikation> getZusatzqualifikationNoetig(int id)
+    {
+        ArrayList<Zusatzqualifikation> Zusatzqualifikation= new ArrayList<Zusatzqualifikation>();
+        String query=   "Select z.ID_Zusatzqualifikation, z.Bezeichnung " +
+                "FROM Zusatzqualifikation z, benoetigt be, Bildungsgang b " +
+                "WHERE be.ID_Zusatzqualifikation=z.ID_Zusatzqualifikation AND be.ID_Bildungsgang=b.ID_Bildungsgang AND b.ID_Bildungsgang="+id;
+        Cursor cursor = db.rawQuery(query,null);
+        while(cursor.moveToNext())
+        {
+            Zusatzqualifikation z= new Zusatzqualifikation(cursor.getInt(0),cursor.getString(1));
+            Zusatzqualifikation.add(z);
+        }
+        cursor.close();
+        return Zusatzqualifikation;
+    }
+
+    public ArrayList<Zusatzqualifikation> getZusatzqualifikationErhalt(int id)
+    {
+        ArrayList<Zusatzqualifikation> Zusatzqualifikation= new ArrayList<Zusatzqualifikation>();
+        String query=   "Select z.ID_Zusatzqualifikation, z.Bezeichnung " +
+                "FROM Zusatzqualifikation z, erhaelt e, Bildungsgang b " +
+                "WHERE e.ID_Zusatzqualifikation=z.ID_Zusatzqualifikation AND e.ID_Bildungsgang=b.ID_Bildungsgang AND b.ID_Bildungsgang="+id;
+        Cursor cursor = db.rawQuery(query,null);
+        while(cursor.moveToNext())
+        {
+            Zusatzqualifikation z= new Zusatzqualifikation(cursor.getInt(0),cursor.getString(1));
+            Zusatzqualifikation.add(z);
+        }
+        cursor.close();
+        return Zusatzqualifikation;
+    }
+
+    public ArrayList<Interesse> getInteressen(int id)
+    {
+        ArrayList<Interesse> interessen= new ArrayList<Interesse>();
+        String query=
+                "Select i.ID_Interessen, i.Beschreibung " +
+                        "FROM Interessen i, nuetzlichfuer n, Bildungsgang b " +
+                        "WHERE i.ID_Interessen=n.ID_Interessen AND b.ID_Bildungsgang=n.ID_Bildungsgang AND b.ID_Bildungsgang="+id;
+        Cursor cursor = db.rawQuery(query,null);
+        while(cursor.moveToNext())
+        {
+            Interesse i= new Interesse(cursor.getInt(0),cursor.getString(1));
+            interessen.add(i);
+        }
+        cursor.close();
+        return interessen;
     }
 }

@@ -5,7 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
+
+import java.util.ArrayList;
 
 public class DatabaseReader extends SQLiteOpenHelper {
 
@@ -16,7 +17,7 @@ public class DatabaseReader extends SQLiteOpenHelper {
     public DatabaseReader(Context context)
     {
         super(context, DATABASE_NAME, null, 1);
-        db =this.getWritableDatabase();
+        db =this.getReadableDatabase();
     }
 
     @Override
@@ -29,86 +30,8 @@ public class DatabaseReader extends SQLiteOpenHelper {
 
     }
 
-    public Cursor getBildungsgang()
-    {
-        String query="Select * FROM Bildungsgang";
-        Cursor cursor = db.rawQuery(query,null);
 
-        return cursor;
-    }
 
-    public String getAbschluss()
-    {
-        String result ="";
-        String query="Select * FROM Abschluss";
-        Cursor cursor = db.rawQuery(query,null);
-        while(cursor.moveToNext())
-        {
-            int result_0=cursor.getInt(0);
-            String result_1=cursor.getString(1);
-            String result_2=cursor.getString(2);
-            result+=String.valueOf(result_0)+" "+result_1+" "+result_2+System.getProperty("line.separator");
-        }
-        cursor.close();
-        db.close();
-        Log.d("test",result);
-        return result;
-    }
-
-    public String getZusatzqualifikation()
-    {
-        String result ="";
-        String query="Select * FROM Zusatzqualifikation";
-        Cursor cursor = db.rawQuery(query,null);
-        while(cursor.moveToNext())
-        {
-            int result_0=cursor.getInt(0);
-            String result_1=cursor.getString(1);
-            result+=String.valueOf(result_0)+" "+result_1+System.getProperty("line.separator");
-        }
-        cursor.close();
-        db.close();
-        Log.d("test",result);
-        return result;
-    }
-
-    public String getInteressen()
-    {
-        String result ="";
-        String query="Select * FROM Interessen";
-        Cursor cursor = db.rawQuery(query,null);
-        while(cursor.moveToNext())
-        {
-            int result_0=cursor.getInt(0);
-            String result_1=cursor.getString(1);
-            result+=String.valueOf(result_0)+" "+result_1+System.getProperty("line.separator");
-        }
-        cursor.close();
-        db.close();
-        Log.d("test",result);
-        return result;
-    }
-
-    public int getUpdat()
-    {
-        int result=0;
-        String query="Select * FROM Updat";
-        try
-        {
-            Cursor cursor = db.rawQuery(query,null);
-            while(cursor.moveToNext())
-            {
-                result=cursor.getInt(1);
-            }
-            cursor.close();
-        }
-        catch(Exception e)
-        {
-        }
-
-        db.close();
-        return result;
-    }
 }
 
 

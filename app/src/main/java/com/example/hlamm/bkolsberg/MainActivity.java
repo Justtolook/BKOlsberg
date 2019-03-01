@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 //TODO: Interesse Klasse
@@ -35,13 +34,13 @@ public class MainActivity extends AppCompatActivity {
 
         myDb= new DatabaseHelper(this);
         myRd= new DatabaseReader(this);
-        if(myRd.getUpdat()==0)
+        if(myDb.getUpdat()==0)
         {
             myDb.insert_all();
         }
         else
         {
-            myDb.update_exists(myRd.getUpdat());
+            myDb.update_exists();
         }
 
 
@@ -92,13 +91,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void createBildungsgangObjects() {
         myRd= new DatabaseReader(this);
-        Cursor cursor=myRd.getBildungsgang();
+        Cursor cursor=myDb.getBildungsgang();
         while(cursor.moveToNext())
         {
-            int result_0=cursor.getInt(0);
-            String result_1=cursor.getString(1);
-            int result_2=cursor.getInt(3);
-            bildungsgaenge.add(new Bildungsgang(result_0, result_1, result_2));
+            bildungsgaenge.add(new Bildungsgang(cursor.getInt(0), cursor.getString(1),
+                                                cursor.getFloat(2),cursor.getString(3),
+                                                myDb.getAbschlussNoetig(cursor.getInt(0)),
+                                                myDb.getZusatzqualifikationNoetig(cursor.getInt(0)),
+                                                myDb.getAbschlussErhalt(cursor.getInt(0)),
+                                                myDb.getZusatzqualifikationErhalt(cursor.getInt(0)),
+                                                myDb.getInteressen(cursor.getInt(0))));
+            //bildungsgaenge.get(bildungsgaenge.size()-1).setAbschlussNeeded();
         }
     }
 
