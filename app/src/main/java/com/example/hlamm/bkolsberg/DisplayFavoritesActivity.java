@@ -27,7 +27,7 @@ public class DisplayFavoritesActivity extends AppCompatActivity {
         for(int i = 0; i < bildungsgaenge.size(); i++) {
             //Selecting just Favorites
             if(bildungsgaenge.get(i).isFavorit()) {
-                cardItems.add(new CardItem(bildungsgaenge.get(i).getId(), bildungsgaenge.get(i).getBezeichnung(), bildungsgaenge.get(i).getDauer(), bildungsgaenge.get(i).isFavorit()));
+                cardItems.add(new CardItem(bildungsgaenge.get(i).getId(), bildungsgaenge.get(i).getBezeichnung(), bildungsgaenge.get(i).getBeschreibung(), bildungsgaenge.get(i).getDauer(), bildungsgaenge.get(i).isFavorit()));
                 favorites_exist = true;
             }
         }

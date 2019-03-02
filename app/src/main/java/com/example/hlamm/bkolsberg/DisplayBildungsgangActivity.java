@@ -13,7 +13,7 @@ import static com.example.hlamm.bkolsberg.MainActivity.bildungsgaenge;
 import static com.example.hlamm.bkolsberg.MainActivity.searchBildungsgang;
 
 public class DisplayBildungsgangActivity extends AppCompatActivity {
-    private TextView tv_BenQuali, tv_Abschluss, tv_kuerzel, tv_Bezeichnung, tv_Dauer;
+    private TextView tv_BenQuali, tv_Abschluss, tv_kuerzel, tv_Bezeichnung, tv_Dauer, tv_Beschreibung;
     private int id;
     private int index;
 
@@ -34,75 +34,53 @@ public class DisplayBildungsgangActivity extends AppCompatActivity {
         tv_Bezeichnung = findViewById(R.id.tv_Bezeichnung);
         tv_Dauer = findViewById(R.id.tv_Dauer);
         tv_kuerzel = findViewById(R.id.tv_kuerzel);
+        tv_Beschreibung = findViewById(R.id.tv_Beschreibung);
     }
 
     public void fillViews() {
-
+        ArrayList<String> stringlist = new ArrayList<>();
         tv_Bezeichnung.setText(bildungsgaenge.get(index).getBezeichnung());
         tv_Dauer.setText(String.valueOf(bildungsgaenge.get(index).getDauer()));
         tv_kuerzel.setText(bildungsgaenge.get(index).getKuerzel());
+        tv_Beschreibung.setText(bildungsgaenge.get(index).getBeschreibung());
 
+        //Zu erhalten
         //Abschluesse
         String string = "";
         for(int i = 0; i < bildungsgaenge.get(index).getAbschluss().size(); i ++) {
-            string += bildungsgaenge.get(index).getAbschluss().get(i).getBezeichnung();
-            if(bildungsgaenge.get(index).getAbschluss().size() -1 != i) string += ", ";
+            stringlist.add(bildungsgaenge.get(index).getAbschluss().get(i).getBezeichnung());
+        }
+
+        //Zusatzqualifikation
+        for(int i = 0; i < bildungsgaenge.get(index).getZusatzqualifikation().size(); i ++) {
+            stringlist.add(bildungsgaenge.get(index).getZusatzqualifikation().get(i).getBezeichnung());
+        }
+
+        for(int i = 0; i < stringlist.size(); i++) {
+            string += stringlist.get(i);
+            if(stringlist.size() -1 != i) string += ", ";
         }
         tv_Abschluss.setText(string);
 
-        //Zusatzqualifikation
+        //Voraussetzungen
+        stringlist.clear();
         string = "";
-        for(int i = 0; i < bildungsgaenge.get(index).getZusatzqualifikation().size(); i ++) {
-            string += bildungsgaenge.get(index).getZusatzqualifikation().get(i).getBezeichnung();
-            if(bildungsgaenge.get(index).getZusatzqualifikation().size() -1 != i) string += ", ";
-        }
-        //tv_Abschluss.setText(string);
-
         //Abschluesse benoetigt
-        string = "";
         for(int i = 0; i < bildungsgaenge.get(index).getAbschlussNeeded().size(); i ++) {
-            string += bildungsgaenge.get(index).getAbschlussNeeded().get(i).getBezeichnung();
-            if(bildungsgaenge.get(index).getAbschlussNeeded().size() -1 != i) string += ", ";
+            stringlist.add(bildungsgaenge.get(index).getAbschlussNeeded().get(i).getBezeichnung());
         }
-        tv_BenQuali.setText(string);
 
         //Zusatzqualifikation benoetigt
-        string = "";
         for(int i = 0; i < bildungsgaenge.get(index).getZusatzqualifikationNeeded().size(); i ++) {
-            string += bildungsgaenge.get(index).getZusatzqualifikationNeeded().get(i).getBezeichnung();
-            if(bildungsgaenge.get(index).getZusatzqualifikationNeeded().size() -1 != i) string += ", ";
+            stringlist.add(bildungsgaenge.get(index).getZusatzqualifikationNeeded().get(i).getBezeichnung());
         }
-        //tv_Abschluss.setText(string);
 
+        for(int i = 0; i < stringlist.size(); i++) {
+            string += stringlist.get(i);
+            if(stringlist.size() -1 != i) string += ", ";
+        }
+        tv_BenQuali.setText(string);
     }
-
-
-/*
-    public class ListViewAbschluss extends ListActivity {
-        ArrayList<String> listItems = new ArrayList<>();
-        ArrayAdapter<String> adapter;
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_display_bildungsgang);
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listItems);
-            setListAdapter(adapter);
-            addItems();
-        }
-
-        /**
-         * Add Items to ListView
-
-        public void addItems() {
-            //Add Items here:
-            listItems.add("Abitur");
-            listItems.add("Berufsabschluss");
-
-            //update ListView
-            adapter.notifyDataSetChanged();
-        }
-    }*/
 }
 
 

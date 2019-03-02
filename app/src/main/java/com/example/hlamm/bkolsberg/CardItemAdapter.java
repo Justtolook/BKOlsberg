@@ -79,7 +79,7 @@ public class CardItemAdapter extends RecyclerView.Adapter<CardItemAdapter.myView
     @Override
     public void onBindViewHolder(CardItemAdapter.myViewHolder holder, int position) {
 
-        holder.tv_beschreibung.setText("Dauer: " + Float.toString(mData.get(position).getDauer()) + " Jahr/e");
+        holder.tv_beschreibung.setText(mData.get(position).getBeschreibung());
         holder.tv_bezeichnung.setText(mData.get(position).getBezeichnung());
 
         if(mData.get(position).isFavorite()) holder.btn_markAsFavorite.setBackgroundResource(R.drawable.ic_outline_star_24px);

@@ -16,7 +16,7 @@
 
     <!-- Button -->
     <string name="btn_start_abfrage">Start</string>
-    <string name="btn_alle_bildungsgaenge">Alle</string>
+    <string name="btn_alle_bildungsgaenge">Bildungsgänge</string>
     <string name="btn_favoriten">Favoriten</string>
     <string name="btn_next">Weiter</string>
     <string name="btn_back">Zurück</string>

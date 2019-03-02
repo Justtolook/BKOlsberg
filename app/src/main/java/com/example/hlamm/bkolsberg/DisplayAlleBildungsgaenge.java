@@ -26,8 +26,8 @@ public class DisplayAlleBildungsgaenge extends AppCompatActivity {
 
 
 
-        for(int iC = 0; iC < bildungsgaenge.size(); iC++) {
-            cardItems.add(new CardItem(bildungsgaenge.get(iC).getId(), bildungsgaenge.get(iC).getBezeichnung(), bildungsgaenge.get(iC).getDauer(), bildungsgaenge.get(iC).isFavorit()));
+        for(int i = 0; i < bildungsgaenge.size(); i++) {
+            cardItems.add(new CardItem(bildungsgaenge.get(i).getId(), bildungsgaenge.get(i).getBezeichnung(), bildungsgaenge.get(i).getBeschreibung(), bildungsgaenge.get(i).getDauer(), bildungsgaenge.get(i).isFavorit()));
         }
 
 

@@ -26,6 +26,31 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/tv_Beschreibung"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Beschreibung..."
+                android:textAlignment="viewStart"
+                android:textColor="#111"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_titleBeschreibung" />
+
+            <TextView
+                android:id="@+id/tv_titleBeschreibung"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:text="Beschreibung"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_Dauer" />
+
+            <TextView
                 android:id="@+id/tv_BenQuali"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -69,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="32dp"
-                android:text="Benötigter Qualifikation"
+                android:text="Benötigte Qualifikation"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_Abschluss" />
 
@@ -128,23 +153,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_kuerzel" />
 
             <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="320dp"
-                android:layout_marginEnd="179dp"
-                android:text="Unten"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_Dauer" />
-
-            <TextView
                 android:id="@+id/tv_Dauer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="3 Jahre"
+                android:text="Dauer..."
                 android:textAlignment="viewStart"
                 android:textColor="#111"
                 android:textSize="24sp"
