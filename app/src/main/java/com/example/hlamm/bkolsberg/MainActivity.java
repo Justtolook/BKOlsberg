@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
     static ArrayList<Interesse> interessen = new ArrayList<>();
     static ArrayList<Question> questions = new ArrayList<>();
     static final String SHARED_PREFS_FAV = "sharedPrefsFavorites";
+    static final String USECASE_FAVORITE = "favorite";
+    static final String USECASE_ALLE = "alle";
+    static final String USECASE_AUSWERTUNG = "auswertung";
     DatabaseHelper myDb;
     DatabaseReader myRd;
 
@@ -69,12 +72,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btn_favorites(View view) {
-        Intent intent = new Intent (this, DisplayFavoritesActivity.class);
+        Bundle b = new Bundle();
+        b.putString("usecase", USECASE_FAVORITE);
+        Intent intent = new Intent (this, DisplayBildungsgangCardsActivity.class);
+        intent.putExtras(b);
         startActivity(intent);
     }
 
     public void btn_alleBildungsgaenge(View view) {
-        Intent intent = new Intent(this, DisplayAlleBildungsgaenge.class);
+        Bundle b = new Bundle();
+        b.putString("usecase", USECASE_ALLE);
+        Intent intent = new Intent (this, DisplayBildungsgangCardsActivity.class);
+        intent.putExtras(b);
         startActivity(intent);
     }
 
@@ -179,5 +188,24 @@ public class MainActivity extends AppCompatActivity {
             if(bildungsgaenge.get(i).getId() == id) return i;
         }
         return 99; //TODO: find better solution if bildungsgang not found
+    }
+
+    public static int searchAbschluss(int id) {
+        int i;
+        for(i = 0; i < abschluesse.size(); i++) {
+            if(abschluesse.get(i).getId() == id) return i;
+        }
+        return 99; //TODO: find better solution if abschluss not found
+    }
+
+    public static boolean isInterestsSimiliar(int bildungsgangId) {
+        int i;
+        int j;
+        for(i = 0; i < bildungsgaenge.get(i).getInteressenNeeded().size(); i++) {
+            for(j = 0; j < interessen.size(); j++) {
+                if(questions.get(2).isAnswerSelected(bildungsgaenge.get(bildungsgangId).getInteressenNeeded().get(i).getId())) return true;
+            }
+        }
+        return false;
     }
 }
