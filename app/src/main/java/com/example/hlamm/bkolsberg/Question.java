@@ -2,10 +2,12 @@ package com.example.hlamm.bkolsberg;
 
 import java.util.ArrayList;
 
+import static com.example.hlamm.bkolsberg.MainActivity.interessen;
+
 public class Question {
     private String question;
     private ArrayList<String> answer;
-    private int answerSelected;
+    private int[] answersSelected = new int[interessen.size()];
 
     /**
      * Standardkonstruktor
@@ -20,7 +22,9 @@ public class Question {
     public Question(String question, ArrayList<String> answer) {
         this.question = question;
         this.answer = answer;
-        this.answerSelected = -1; //none is selected
+        for(int i = 0; i < answersSelected.length; i++) {
+            answersSelected[i] = -1; //none is selected
+        }
     }
 
     public void setQuestion(String question) {
@@ -32,12 +36,44 @@ public class Question {
     }
 
     /**
+     * Nur bei RadioGroup verwenden!
      * Setzt die gewählte Antwort.
      * Dabei wird nur der Index der Antwort gespeichert!
      * @param answerSelected
      */
     public void setAnswerSelected(int answerSelected) {
-        this.answerSelected = answerSelected;
+        this.answersSelected[0] = answerSelected;
+    }
+
+    /**
+     * Ändert die Auswahl einer Antwortmöglichkeit bei Checkboxen.
+     * @param id            ID der Interesse
+     * @param isChecked     Neuer Auswahlzustand
+     */
+    public void toggleAnswerSelected(int id, boolean isChecked) {
+        boolean finished = false;
+        boolean error = false;
+        int i = 0;
+        if(isChecked) {
+            do{
+                if(-1 == answersSelected[i]) {
+                    answersSelected[i] = id;
+                    finished = true;
+                }
+                else if(i >= answersSelected.length) error = true;
+                i++;
+            }while(!finished && !error);
+        }
+        else {
+            do{
+                if(id == answersSelected[i]) {
+                    answersSelected[i] = -1;
+                    finished = true;
+                }
+                else if(i >= answersSelected.length) error = true;
+                i++;
+            }while(!finished && !error);
+        }
     }
 
     /**
@@ -58,11 +94,12 @@ public class Question {
     }
 
     /**
+     * Nur bei RadioGroup verwenden!
      * Gibt den Index der gewählten Antwort zurück
      * @return
      */
     public int getAnswerSelected() {
-        return answerSelected;
+        return answersSelected[0];
     }
 
     /**
@@ -73,5 +110,11 @@ public class Question {
         return answer.size();
     }
 
+    public boolean isAnswerSelected(int id) {
+        for(int i = 0; i < interessen.size(); i++) {
+            if(id == answersSelected[i]) return true;
+        }
+        return false;
+    }
 
 }
