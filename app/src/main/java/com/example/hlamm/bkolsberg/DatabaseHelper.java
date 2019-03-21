@@ -32,15 +32,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE Abschluss(ID_Abschluss INTEGER PRIMARY KEY AUTOINCREMENT,Bezeichnung TEXT,Bildungsstufe INTEGER)");
-        db.execSQL("CREATE TABLE Bildungsgang(ID_Bildungsgang INTEGER PRIMARY KEY AUTOINCREMENT, Bezeichnung TEXT,Kuerzel Text,Beschreibung Text ,URL Text,Dauer INTEGER)");
+        db.execSQL("CREATE TABLE Abschluss(ID_Abschluss INTEGER,Bezeichnung TEXT,Bildungsstufe INTEGER)");
+        db.execSQL("CREATE TABLE Bildungsgang(ID_Bildungsgang INTEGER, Bezeichnung TEXT,Kuerzel Text,Beschreibung Text ,URL Text,Dauer INTEGER)");
         db.execSQL("CREATE TABLE benoetigt (ID_Bildungsgang INTEGER,ID_Abschluss INTEGER,ID_Zusatzqualifikation INTEGER)");
         db.execSQL("CREATE TABLE erhaelt(ID_Zusatzqualifikation INETEGER, ID_Bildungsgang INTEGER)");
         db.execSQL("CREATE TABLE erreicht(ID_Bildungsgang INTEGER,ID_Abschluss INTEGER)");
-        db.execSQL("CREATE TABLE Interessen(ID_Interessen INTEGER PRIMARY KEY AUTOINCREMENT, Beschreibung TEXT)");
+        db.execSQL("CREATE TABLE Interessen(ID_Interessen INTEGER, Beschreibung TEXT)");
         db.execSQL("CREATE TABLE nuetzlichFuer(ID_Interessen INTEGER,ID_Bildungsgang INTEGER)");
-        db.execSQL("CREATE TABLE Zusatzqualifikation(ID_Zusatzqualifikation INTEGER PRIMARY KEY, Bezeichnung TEXT )");
-        db.execSQL("CREATE TABLE Updat(ID_updat INTEGER PRIMARY KEY AUTOINCREMENT, Wert INTEGER)");
+        db.execSQL("CREATE TABLE Zusatzqualifikation(ID_Zusatzqualifikation INTEGER, Bezeichnung TEXT )");
+        db.execSQL("CREATE TABLE Updat(ID_updat INTEGER, Wert INTEGER)");
     }
 
 
@@ -140,10 +140,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             for(int i=0;i<ja.length();i++)
             {
                 jo=ja.getJSONObject(i);
+                String id=jo.getString("ID_Abschluss");
                 String bezeichnung=jo.getString("Bezeichnung");
                 String bildungsstufe=jo.getString("Bildungsstufe");
 
                 contentValues = new ContentValues();
+                contentValues.put("ID_Abschluss",id);
                 contentValues.put("Bezeichnung",bezeichnung);
                 contentValues.put("Bildungsstufe",bildungsstufe);
                 this.getWritableDatabase().insertOrThrow("Abschluss","",contentValues);
@@ -166,6 +168,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             for(int i=0;i<ja.length();i++)
             {
                 jo=ja.getJSONObject(i);
+                String id=jo.getString("ID_Bildungsgang");
                 String bezeichnung=jo.getString("Bezeichnung");
                 String kuerzel=jo.getString("Kuerzel");
                 String beschreibung=jo.getString("Beschreibung");
@@ -173,6 +176,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String dauer=jo.getString("Dauer");
 
                 contentValues = new ContentValues();
+                contentValues.put("ID_Bildungsgang",id);
                 contentValues.put("Bezeichnung",bezeichnung);
                 contentValues.put("Kuerzel",kuerzel);
                 contentValues.put("Beschreibung",beschreibung);
@@ -275,8 +279,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             for(int i=0;i<ja.length();i++)
             {
                 jo=ja.getJSONObject(i);
+                String id=jo.getString("ID_Interesse");
                 String beschreibung=jo.getString("Beschreibung");
                 contentValues = new ContentValues();
+                contentValues.put("ID_Interessen",id);
                 contentValues.put("Beschreibung",beschreibung);
                 this.getWritableDatabase().insertOrThrow("Interessen","",contentValues);
             }
@@ -323,8 +329,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             for(int i=0;i<ja.length();i++)
             {
                 jo=ja.getJSONObject(i);
+                String id=jo.getString("ID_Zusatzqualifikation");
                 String bezeichnung=jo.getString("Bezeichnung");
                 contentValues = new ContentValues();
+                contentValues.put("ID_Zusatzqualifikation",id);
                 contentValues.put("Bezeichnung",bezeichnung);
                 this.getWritableDatabase().insertOrThrow("Zusatzqualifikation","",contentValues);
             }

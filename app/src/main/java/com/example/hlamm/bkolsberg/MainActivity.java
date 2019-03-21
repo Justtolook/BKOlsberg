@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     static ArrayList<Question> questions = new ArrayList<>();
     static final String SHARED_PREFS_FAV = "sharedPrefsFavorites";
     DatabaseHelper myDb;
-    DatabaseReader myRd;
 
 
     @Override
@@ -33,15 +32,14 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
 
         myDb= new DatabaseHelper(this);
-        myRd= new DatabaseReader(this);
-        if(myDb.getUpdat()==0)
+        /*if(myDb.getUpdat()==0)
         {
             myDb.insert_all();
         }
         else
         {
             myDb.update_exists();
-        }
+        }*/
 
 
 
@@ -90,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createBildungsgangObjects() {
-        myRd= new DatabaseReader(this);
         Cursor cursor=myDb.getBildungsgang();
         while(cursor.moveToNext())
         {
