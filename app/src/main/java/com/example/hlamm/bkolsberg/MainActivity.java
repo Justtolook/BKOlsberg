@@ -42,22 +42,11 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
 
-
-        /**
-         * TODO: Inserts überarbeiten
-         * Insert funktionen nur ausführen, wenn lokale Datenbank veraltet ist
-         * Eventuell in den Databasehelp verschieben
-         * Vor den Einfügen, erst Datensätze löschen
-         */
-        //Log.d("test", Integer.toString(myRd.getUpdat()));
-
-
-
         if(!objectsInitialized) {
             createAbschlussObjects();
             createQualiObjects();
-            createBildungsgangObjects();
             createInteressenObjects();
+            createBildungsgangObjects();
             createQuestionObjects();
             objectsInitialized = true;
             loadDataFavorite();
@@ -91,8 +80,11 @@ public class MainActivity extends AppCompatActivity {
         Cursor cursor=myDb.getBildungsgang();
         while(cursor.moveToNext())
         {
-            bildungsgaenge.add(new Bildungsgang(cursor.getInt(0), cursor.getString(1),
-                                                cursor.getFloat(2),cursor.getString(3),
+            bildungsgaenge.add(new Bildungsgang(cursor.getInt(0),       //ID
+                                                cursor.getString(1),    //Bezeichnung
+                                                cursor.getFloat(5),     //Dauer
+                                                cursor.getString(2),    //kuerzel
+                                                cursor.getString(3),    //Beschreibung
                                                 myDb.getAbschlussNoetig(cursor.getInt(0)),
                                                 myDb.getZusatzqualifikationNoetig(cursor.getInt(0)),
                                                 myDb.getAbschlussErhalt(cursor.getInt(0)),

@@ -19,9 +19,10 @@ public class CardItem {
         this.dauer = dauer;
     }
 
-    public CardItem(int id, String bezeichnung, float dauer, boolean favorite) {
+    public CardItem(int id, String bezeichnung, String beschreibung, float dauer, boolean favorite) {
         this.id = id;
         this.bezeichnung = bezeichnung;
+        this.beschreibung = beschreibung;
         this.dauer = dauer;
         this.favorite = favorite;
     }

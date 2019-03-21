@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -13,15 +15,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static com.example.hlamm.bkolsberg.MainActivity.interessen;
 import static com.example.hlamm.bkolsberg.MainActivity.questions;
 
 //TODO: Progressbar/counter
 //TODO: Resetbutton
 public class DisplayAbfrageActivity extends AppCompatActivity {
-    /**
-     * Speichert die Question-Objekte
-     */
-    //private ArrayList<Question> questions = new ArrayList<>();
+    private int ANSWER_CHECKBOX_POSITION = 0;
     private int position = 0;
     /**
      * allowDataChange:
@@ -30,13 +30,14 @@ public class DisplayAbfrageActivity extends AppCompatActivity {
      * It invokes a change of selected answer from the selection reset in updateView()
      */
     private boolean allowDataChange;
-    private static RadioGroup radioGroup;
+    private RadioGroup radioGroup;
+    private ArrayList<CheckBox> checkBoxes = new ArrayList<>();
     private TextView tv_question;
     private static ArrayList<RadioButton> radioButtons = new ArrayList<>();
+    private LinearLayout ll_answer;
     private Button btn_next;
     private Button btn_back;
     private Button btn_send;
-    private int[] selection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,19 +51,28 @@ public class DisplayAbfrageActivity extends AppCompatActivity {
      * initiate variables, views and listener
      */
     public void init() {
-        radioGroup = findViewById(R.id.answerRadioGroup);
+        radioGroup = new RadioGroup(this);
         tv_question = findViewById(R.id.tv_question);
         btn_back = findViewById(R.id.btn_back);
         btn_next = findViewById(R.id.btn_next);
         btn_send = findViewById(R.id.btn_send);
-        //selection = new int[questions.size()];
+        ll_answer = findViewById(R.id.ll_answer);
+        for(int i = 0; i < interessen.size(); i++) {
+            checkBoxes.add(new CheckBox(this));
+            checkBoxes.get(i).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(allowDataChange) {
+                        questions.get(position).toggleAnswerSelected(buttonView.getId(), isChecked);
+                    }
+                }
+            });
+        }
 
         /** btn_back */
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //selection[position] = radioGroup.getCheckedRadioButtonId();
-                //questions.get(position).setAnswerSelected(radioGroup.getCheckedRadioButtonId());
                 approveNewPosition(position - 1);
 
             }
@@ -72,8 +82,6 @@ public class DisplayAbfrageActivity extends AppCompatActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //selection[position] = radioGroup.getCheckedRadioButtonId();
-                //questions.get(position).setAnswerSelected(radioGroup.getCheckedRadioButtonId());
                 approveNewPosition(position + 1);
             }
         });
@@ -128,27 +136,45 @@ public class DisplayAbfrageActivity extends AppCompatActivity {
          * Fragetext festlegen
          */
         allowDataChange = false;
+        ll_answer.removeAllViews();
         tv_question.setText(questions.get(position).getQuestion());
-        radioGroup.clearCheck();
-        radioGroup.removeAllViews();
-        radioButtons.clear();
 
+        //Checkboxen
+        if(ANSWER_CHECKBOX_POSITION == position) {
+            for(int i = 0; i < checkBoxes.size(); i++) {
+                checkBoxes.get(i).setText(interessen.get(i).getBezeichnung());
+                checkBoxes.get(i).setId(interessen.get(i).getId());
+                checkBoxes.get(i).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                ll_answer.addView(checkBoxes.get(i));
+                if(questions.get(position).isAnswerSelected(checkBoxes.get(i).getId())) checkBoxes.get(i).setChecked(true);
+            }
 
-        /**
-         * RadioButtons erstellen und mit Antworttext fuellen
-         */
-        for(int index = 0; index < questions.get(position).getAnswerSize(); index++){
-            radioButtons.add(new RadioButton(getApplicationContext()));
-            radioButtons.get(index).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            radioButtons.get(index).setId(index);
-            radioButtons.get(index).setText(questions.get(position).getAnswer(index));
-            radioGroup.addView(radioButtons.get(index));
-            //Log.d("index: ", Integer.toString(index));
-            //Log.d("radioButton: ", Integer.toString(radioButtons.get(index).getId()));
         }
-        //radioGroup.check(selection[position]);
-        radioGroup.check(questions.get(position).getAnswerSelected());
-        Log.d("AnswerSelected: ", Integer.toString(questions.get(position).getAnswerSelected()));
+
+        //Radiobuttons
+        if(ANSWER_CHECKBOX_POSITION != position) {
+            ll_answer.addView(radioGroup);
+            radioGroup.clearCheck();
+            radioGroup.removeAllViews();
+            radioButtons.clear();
+
+
+            /**
+             * RadioButtons erstellen und mit Antworttext fuellen
+             */
+            for(int index = 0; index < questions.get(position).getAnswerSize(); index++){
+                radioButtons.add(new RadioButton(getApplicationContext()));
+                radioButtons.get(index).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                radioButtons.get(index).setId(index);
+                radioButtons.get(index).setText(questions.get(position).getAnswer(index));
+                radioGroup.addView(radioButtons.get(index));
+                //Log.d("index: ", Integer.toString(index));
+                //Log.d("radioButton: ", Integer.toString(radioButtons.get(index).getId()));
+            }
+            radioGroup.check(questions.get(position).getAnswerSelected());
+            Log.d("AnswerSelected: ", Integer.toString(questions.get(position).getAnswerSelected()));
+        }
+
         allowDataChange = true;
     }
 
