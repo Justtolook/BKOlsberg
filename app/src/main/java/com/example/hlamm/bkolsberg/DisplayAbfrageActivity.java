@@ -177,6 +177,4 @@ public class DisplayAbfrageActivity extends AppCompatActivity {
 
         allowDataChange = true;
     }
-
-
 }

@@ -37,14 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
         myDb= new DatabaseHelper(this);
         myRd= new DatabaseReader(this);
-        if(myDb.getUpdat()==0)
+        /*if(myDb.getUpdat()==0)
         {
             myDb.insert_all();
         }
         else
         {
             myDb.update_exists();
-        }
+        }*/
 
 
         if(!objectsInitialized) {

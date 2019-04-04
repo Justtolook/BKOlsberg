@@ -129,7 +129,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insert_Abschluss()
     {
-        url="https://bkoapp.cyka-bly.at/java-scripts/SelectAbschluss.php";
+        url="https://bkoapp.hlammert/java-scripts/SelectAbschluss.php";
         d=new Downloader(url);
         data=d.downloadData();
 
@@ -155,7 +155,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insert_Bildungsgang()
     {
-        url="https://bkoapp.cyka-bly.at/java-scripts/SelectBildungsgang.php";
+        url="https://bkoapp.hlammert.at/java-scripts/SelectBildungsgang.php";
         d=new Downloader(url);
         data=d.downloadData();
 
@@ -187,7 +187,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insert_erhaelt()
     {
-        url="https://bkoapp.cyka-bly.at/java-scripts/SelectErhaelt.php";
+        url="https://bkoapp.hlammert/java-scripts/SelectErhaelt.php";
         d=new Downloader(url);
         data=d.downloadData();
 
@@ -212,7 +212,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insert_benoetigt()
     {
-        url="https://bkoapp.cyka-bly.at/java-scripts/SelectBenoetigt.php";
+        url="https://bkoapp.hlammert.at/java-scripts/SelectBenoetigt.php";
         d=new Downloader(url);
         data=d.downloadData();
 
@@ -239,7 +239,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insert_erreicht()
     {
-        url="https://bkoapp.cyka-bly.at/java-scripts/SelectErreicht.php";
+        url="https://bkoapp.hlammert.at/java-scripts/SelectErreicht.php";
         d=new Downloader(url);
         data=d.downloadData();
 
@@ -264,7 +264,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insert_Interessen()
     {
-        url="https://bkoapp.cyka-bly.at/java-scripts/SelectInteressen.php";
+        url="https://bkoapp.hlammert.at/java-scripts/SelectInteressen.php";
         d=new Downloader(url);
         data=d.downloadData();
 
@@ -287,7 +287,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insert_nuetzlichFuer()
     {
-        url="https://bkoapp.cyka-bly.at/java-scripts/SelectNueztlich.php";
+        url="https://bkoapp.hlammert.at/java-scripts/SelectNueztlich.php";
         d=new Downloader(url);
         data=d.downloadData();
 
@@ -312,7 +312,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insert_Zusatzqualifikation()
     {
-        url="https://bkoapp.cyka-bly.at/java-scripts/SelectZusatzqualifikation.php";
+        url="https://bkoapp.hlammert.at/java-scripts/SelectZusatzqualifikation.php";
         d=new Downloader(url);
         data=d.downloadData();
 
@@ -335,7 +335,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insert_Updat()
     {
-        url="https://bkoapp.cyka-bly.at/java-scripts/updat.php";
+        url="https://bkoapp.hlammert.at/java-scripts/updat.php";
         d=new Downloader(url);
         data=d.downloadData();
 
@@ -361,7 +361,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void update_exists()
     {
         int actualVersion=getUpdat();
-        url="https://bkoapp.cyka-bly.at/java-scripts/updat.php";
+        url="https://bkoapp.hlammert.at/java-scripts/updat.php";
         d=new Downloader(url);
         data=d.downloadData();
 
