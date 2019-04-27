@@ -126,10 +126,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insert_erreicht();
         insert_Updat();
     }
-
+//TODO: Bei den insert-funktionen muss noch die ID übernommen werden!!
     public void insert_Abschluss()
     {
-        url="https://bkoapp.cyka-bly.at/java-scripts/SelectAbschluss.php";
+        url="https://bkoapp.hlammert.de/java-scripts/SelectAbschluss.php";
         d=new Downloader(url);
         data=d.downloadData();
 
@@ -145,7 +145,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String bildungsstufe=jo.getString("Bildungsstufe");
 
                 contentValues = new ContentValues();
-                contentValues.put("ID_Abschluss",id);
+                contentValues.put("ID_Abschluss", id);
                 contentValues.put("Bezeichnung",bezeichnung);
                 contentValues.put("Bildungsstufe",bildungsstufe);
                 this.getWritableDatabase().insertOrThrow("Abschluss","",contentValues);
@@ -157,7 +157,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insert_Bildungsgang()
     {
-        url="https://bkoapp.cyka-bly.at/java-scripts/SelectBildungsgang.php";
+        url="https://bkoapp.hlammert.de/java-scripts/SelectBildungsgang.php";
         d=new Downloader(url);
         data=d.downloadData();
 
@@ -176,7 +176,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String dauer=jo.getString("Dauer");
 
                 contentValues = new ContentValues();
-                contentValues.put("ID_Bildungsgang",id);
+                contentValues.put("ID_Bildungsgang", id);
                 contentValues.put("Bezeichnung",bezeichnung);
                 contentValues.put("Kuerzel",kuerzel);
                 contentValues.put("Beschreibung",beschreibung);
@@ -191,7 +191,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insert_erhaelt()
     {
-        url="https://bkoapp.cyka-bly.at/java-scripts/SelectErhaelt.php";
+        url="https://bkoapp.hlammert.de/java-scripts/SelectErhaelt.php";
         d=new Downloader(url);
         data=d.downloadData();
 
@@ -216,7 +216,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insert_benoetigt()
     {
-        url="https://bkoapp.cyka-bly.at/java-scripts/SelectBenoetigt.php";
+        url="https://bkoapp.hlammert.de/java-scripts/SelectBenoetigt.php";
         d=new Downloader(url);
         data=d.downloadData();
 
@@ -243,7 +243,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insert_erreicht()
     {
-        url="https://bkoapp.cyka-bly.at/java-scripts/SelectErreicht.php";
+        url="https://bkoapp.hlammert.de/java-scripts/SelectErreicht.php";
         d=new Downloader(url);
         data=d.downloadData();
 
@@ -268,7 +268,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insert_Interessen()
     {
-        url="https://bkoapp.cyka-bly.at/java-scripts/SelectInteressen.php";
+        url="https://bkoapp.hlammert.de/java-scripts/SelectInteressen.php";
         d=new Downloader(url);
         data=d.downloadData();
 
@@ -282,7 +282,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String id=jo.getString("ID_Interesse");
                 String beschreibung=jo.getString("Beschreibung");
                 contentValues = new ContentValues();
-                contentValues.put("ID_Interessen",id);
+                contentValues.put("ID_Interessen", id);
                 contentValues.put("Beschreibung",beschreibung);
                 this.getWritableDatabase().insertOrThrow("Interessen","",contentValues);
             }
@@ -293,7 +293,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insert_nuetzlichFuer()
     {
-        url="https://bkoapp.cyka-bly.at/java-scripts/SelectNueztlich.php";
+        url="https://bkoapp.hlammert.de/java-scripts/SelectNueztlich.php";
         d=new Downloader(url);
         data=d.downloadData();
 
@@ -318,7 +318,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insert_Zusatzqualifikation()
     {
-        url="https://bkoapp.cyka-bly.at/java-scripts/SelectZusatzqualifikation.php";
+        url="https://bkoapp.hlammert.de/java-scripts/SelectZusatzqualifikation.php";
         d=new Downloader(url);
         data=d.downloadData();
 
@@ -332,7 +332,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String id=jo.getString("ID_Zusatzqualifikation");
                 String bezeichnung=jo.getString("Bezeichnung");
                 contentValues = new ContentValues();
-                contentValues.put("ID_Zusatzqualifikation",id);
+                contentValues.put("ID_Zusatzqualifikation", id);
                 contentValues.put("Bezeichnung",bezeichnung);
                 this.getWritableDatabase().insertOrThrow("Zusatzqualifikation","",contentValues);
             }
@@ -343,7 +343,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insert_Updat()
     {
-        url="https://bkoapp.cyka-bly.at/java-scripts/updat.php";
+        url="https://bkoapp.hlammert.de/java-scripts/updat.php";
         d=new Downloader(url);
         data=d.downloadData();
 
@@ -369,7 +369,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void update_exists()
     {
         int actualVersion=getUpdat();
-        url="https://bkoapp.cyka-bly.at/java-scripts/updat.php";
+        url="https://bkoapp.hlammert.de/java-scripts/updat.php";
         d=new Downloader(url);
         data=d.downloadData();
 
@@ -420,16 +420,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public Cursor getAbschluesse()
+    {
+        String query="Select * FROM Abschluss";
+        Cursor cursor = db.rawQuery(query,null);
+
+        return cursor;
+    }
+
     public ArrayList<Abschluss> getAbschlussErhalt(int id)
     {
         ArrayList<Abschluss> Abschluss= new ArrayList<Abschluss>();
-        String query=   "Select a.ID_Abschluss, a.Bezeichnung " +
+        String query=   "Select a.ID_Abschluss, a.Bezeichnung, a.Bildungsstufe " +
                 "FROM Abschluss a, erreicht e, Bildungsgang b " +
                 "WHERE e.ID_Abschluss=a.ID_Abschluss AND e.ID_Bildungsgang=b.ID_Bildungsgang AND b.ID_Bildungsgang="+id;
         Cursor cursor = db.rawQuery(query,null);
         while(cursor.moveToNext())
         {
-            Abschluss a = new Abschluss(cursor.getInt(0),cursor.getString(1));
+            Abschluss a = new Abschluss(cursor.getInt(0),cursor.getString(1), cursor.getInt(2));
             Abschluss.add(a);
         }
         cursor.close();
@@ -439,13 +447,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<Abschluss> getAbschlussNoetig(int id)
     {
         ArrayList<Abschluss> Abschluss= new ArrayList<Abschluss>();
-        String query=   "Select a.ID_Abschluss, a.Bezeichnung " +
+        String query=   "Select a.ID_Abschluss, a.Bezeichnung, a.Bildungsstufe " +
                 "FROM Abschluss  a, benoetigt  be, Bildungsgang  b " +
                 "WHERE be.ID_Abschluss=a.ID_Abschluss AND b.ID_Bildungsgang=be.ID_Bildungsgang AND b.ID_Bildungsgang="+id;
         Cursor cursor = db.rawQuery(query,null);
         while(cursor.moveToNext())
         {
-            Abschluss a = new Abschluss(cursor.getInt(0),cursor.getString(1));
+            Abschluss a = new Abschluss(cursor.getInt(0),cursor.getString(1), cursor.getInt(2));
             Abschluss.add(a);
         }
         cursor.close();

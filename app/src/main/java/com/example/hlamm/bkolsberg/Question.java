@@ -1,5 +1,7 @@
 package com.example.hlamm.bkolsberg;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import static com.example.hlamm.bkolsberg.MainActivity.interessen;
@@ -110,10 +112,26 @@ public class Question {
         return answer.size();
     }
 
+    /**
+     * Kontrolliert, ob die gegebene Interessen-ID bei der Abfrage ausgewählt wurde
+     * @param id
+     * @return
+     */
     public boolean isAnswerSelected(int id) {
         for(int i = 0; i < interessen.size(); i++) {
-            if(id == answersSelected[i]) return true;
+            Log.d("isAnswerSelected", "isAnswerSelected: COMPARISSON ---------");
+            Log.d("isAnswerSelected", "is " + id + " == " + answersSelected[i] + "?");
+
+            if(id == answersSelected[i]) {
+                Log.d("isAnswerSelected", "isAnswerSelected: true -- match!");
+                return true;
+            }
+            else {
+                Log.d("isAnswerSelected", "isAnswerSelected: false");
+            }
+
         }
+        Log.d("isAnswerSelected", "isAnswerSelected: no match");
         return false;
     }
 

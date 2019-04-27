@@ -6,12 +6,14 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-//TODO: Interesse Klasse
+//TODO: Zurück-Button bei den DisplayBildungsgangActivity mit Abhängigkeit von Ursprungsactivity
 public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
 
@@ -22,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
     static ArrayList<Interesse> interessen = new ArrayList<>();
     static ArrayList<Question> questions = new ArrayList<>();
     static final String SHARED_PREFS_FAV = "sharedPrefsFavorites";
+    static final String USECASE_FAVORITE = "favorite";
+    static final String USECASE_ALLE = "alle";
+    static final String USECASE_AUSWERTUNG = "auswertung";
     DatabaseHelper myDb;
 
 
@@ -32,14 +37,15 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
 
         myDb= new DatabaseHelper(this);
-        /*if(myDb.getUpdat()==0)
+        if(myDb.getUpdat()==0)
         {
             myDb.insert_all();
         }
         else
         {
             myDb.update_exists();
-        }*/
+            Toast.makeText(getApplicationContext(), "Database updated", Toast.LENGTH_LONG).show();
+        }
 
 
         if(!objectsInitialized) {
@@ -67,15 +73,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btn_favorites(View view) {
-        Intent intent = new Intent (this, DisplayFavoritesActivity.class);
+        Bundle b = new Bundle();
+        b.putString("usecase", USECASE_FAVORITE);
+        Intent intent = new Intent (this, DisplayBildungsgangCardsActivity.class);
+        intent.putExtras(b);
         startActivity(intent);
     }
 
     public void btn_alleBildungsgaenge(View view) {
-        Intent intent = new Intent(this, DisplayAlleBildungsgaenge.class);
+        Bundle b = new Bundle();
+        b.putString("usecase", USECASE_ALLE);
+        Intent intent = new Intent (this, DisplayBildungsgangCardsActivity.class);
+        intent.putExtras(b);
         startActivity(intent);
     }
 
+    /**
+     * TODO: in den Bildungsgängen nicht ganze Abschluss (und andere) Objekte, sondern nur die ID
+     */
     public void createBildungsgangObjects() {
         Cursor cursor=myDb.getBildungsgang();
         while(cursor.moveToNext())
@@ -95,9 +110,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createAbschlussObjects() {
-        abschluesse.add(new Abschluss(0, "MOR"));
-        abschluesse.add(new Abschluss(1, "OR"));
-
+        myRd= new DatabaseReader(this);
+        Cursor cursor=myDb.getAbschluesse();
+        while(cursor.moveToNext()) {
+            abschluesse.add(new Abschluss(cursor.getInt(0),
+                                            cursor.getString(1),
+                                            cursor.getInt(2)));
+        }
     }
 
     public void createQualiObjects() {
@@ -176,5 +195,43 @@ public class MainActivity extends AppCompatActivity {
             if(bildungsgaenge.get(i).getId() == id) return i;
         }
         return 99; //TODO: find better solution if bildungsgang not found
+    }
+
+    /**
+     * Bekommt ID und liefert den Array-Index
+     * @param id ID von dem Abschluss
+     * @return  Index vom Array zum zugehörigen Abschluss
+     */
+    public static int searchAbschluss(int id) {
+        int i;
+        for(i = 0; i < abschluesse.size(); i++) {
+            if(abschluesse.get(i).getId() == id) return i;
+        }
+        return 99; //TODO: find better solution if abschluss not found
+    }
+
+    public static boolean isInterestsSimiliar(int bildungsgangId) {
+        int i;
+        int j;
+        /**
+         * Problem
+         * i = 1
+         * j = 0
+         */
+                                        //vorher "i"
+        for(i = 0; i < bildungsgaenge.get(bildungsgangId).getInteressenNeeded().size(); i++) {
+            //for(j = 0; j < interessen.size(); j++) {
+                Log.d("isInterestsSimiliar", "isInterestsSimiliar: COMPARISSON--------------");
+                Log.d("isInterestsSimiliar", "i = " + i);
+                //Log.d("isInterestsSimiliar", "j = " + j);
+                            //vorher "2"
+                if(questions.get(0).isAnswerSelected(bildungsgaenge.get(bildungsgangId).getInteressenNeeded().get(i).getId())) {
+                    Log.d("isInterestsSimiliar", "isInterestsSimiliar: true");
+                    return true;
+                }
+            //}
+        }
+        Log.d("isInterestsSimiliar", "isInterestsSimiliar: false");
+        return false;
     }
 }
