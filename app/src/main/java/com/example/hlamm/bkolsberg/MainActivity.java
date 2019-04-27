@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     static final String USECASE_ALLE = "alle";
     static final String USECASE_AUSWERTUNG = "auswertung";
     DatabaseHelper myDb;
-    DatabaseReader myRd;
 
 
     @Override
@@ -38,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
 
         myDb= new DatabaseHelper(this);
-        myRd= new DatabaseReader(this);
         if(myDb.getUpdat()==0)
         {
             myDb.insert_all();
@@ -94,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
      * TODO: in den Bildungsgängen nicht ganze Abschluss (und andere) Objekte, sondern nur die ID
      */
     public void createBildungsgangObjects() {
-        myRd= new DatabaseReader(this);
         Cursor cursor=myDb.getBildungsgang();
         while(cursor.moveToNext())
         {
