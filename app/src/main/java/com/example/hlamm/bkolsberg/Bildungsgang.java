@@ -1,5 +1,7 @@
 package com.example.hlamm.bkolsberg;
 
+import android.net.Uri;
+
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -10,7 +12,7 @@ public class Bildungsgang {
     private boolean favorit;
     private String kuerzel;
     private String beschreibung;
-    private URL url;
+    private Uri uri;
     private ArrayList<Abschluss> abschlussNeeded;
     private ArrayList<Zusatzqualifikation> zusatzqualifikationNeeded;
     private ArrayList<Abschluss> abschluss;
@@ -57,6 +59,7 @@ public class Bildungsgang {
                         float dauer,
                         String kuerzel,
                         String beschreibung,
+                        Uri uri,
                         ArrayList<Abschluss> abschlussNeeded,
                         ArrayList<Zusatzqualifikation> zusatzqualifikationNeeded,
                         ArrayList<Abschluss> abschluss,
@@ -68,7 +71,7 @@ public class Bildungsgang {
         this.favorit = favorit;
         this.kuerzel = kuerzel;
         this.beschreibung = beschreibung;
-        //this.url = url;
+        this.uri = uri;
         this.abschlussNeeded = abschlussNeeded;
         this.zusatzqualifikationNeeded = zusatzqualifikationNeeded;
         this.abschluss = abschluss;
@@ -125,12 +128,12 @@ public class Bildungsgang {
         this.beschreibung = beschreibung;
     }
 
-    public URL getUrl() {
-        return url;
+    public Uri getUri() {
+        return uri;
     }
 
     public void setUrl(URL url) {
-        this.url = url;
+        this.uri = uri;
     }
 
     public ArrayList<Interesse> getInteressenNeeded() {

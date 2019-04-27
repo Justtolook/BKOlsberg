@@ -1,19 +1,27 @@
 package com.example.hlamm.bkolsberg;
 
 import android.app.ListActivity;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 import static com.example.hlamm.bkolsberg.MainActivity.bildungsgaenge;
 import static com.example.hlamm.bkolsberg.MainActivity.searchBildungsgang;
 
 public class DisplayBildungsgangActivity extends AppCompatActivity {
-    private TextView tv_BenQuali, tv_Abschluss, tv_kuerzel, tv_Bezeichnung, tv_Dauer, tv_Beschreibung;
+    private TextView tv_BenQuali, tv_Abschluss, tv_kuerzel, tv_Bezeichnung, tv_Dauer, tv_Beschreibung, tv_weblink_info;
+    private ImageButton btn_weblink_info;
+    private Uri uri;
+
     private int id;
     private int index;
 
@@ -35,6 +43,32 @@ public class DisplayBildungsgangActivity extends AppCompatActivity {
         tv_Dauer = findViewById(R.id.tv_Dauer);
         tv_kuerzel = findViewById(R.id.tv_kuerzel);
         tv_Beschreibung = findViewById(R.id.tv_Beschreibung);
+        tv_weblink_info = findViewById(R.id.tv_weblink_info);
+        btn_weblink_info = findViewById(R.id.btn_weblink_info);
+
+        uri = bildungsgaenge.get(index).getUri();
+        tv_weblink_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Weblink", "onClick: " + uri.toString());
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                if(intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
+
+        btn_weblink_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Weblink", "onClick: " + uri.toString());
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                if(intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
+
     }
 
     public void fillViews() {
@@ -80,6 +114,8 @@ public class DisplayBildungsgangActivity extends AppCompatActivity {
             if(stringlist.size() -1 != i) string += ", ";
         }
         tv_BenQuali.setText(string);
+
+
     }
 }
 

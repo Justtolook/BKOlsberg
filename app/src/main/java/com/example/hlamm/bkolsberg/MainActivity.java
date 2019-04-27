@@ -3,6 +3,7 @@ package com.example.hlamm.bkolsberg;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -100,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                                                 cursor.getFloat(5),     //Dauer
                                                 cursor.getString(2),    //kuerzel
                                                 cursor.getString(3),    //Beschreibung
+                                                Uri.parse(cursor.getString(4)),
                                                 myDb.getAbschlussNoetig(cursor.getInt(0)),
                                                 myDb.getZusatzqualifikationNoetig(cursor.getInt(0)),
                                                 myDb.getAbschlussErhalt(cursor.getInt(0)),
@@ -110,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createAbschlussObjects() {
-        myRd= new DatabaseReader(this);
+
         Cursor cursor=myDb.getAbschluesse();
         while(cursor.moveToNext()) {
             abschluesse.add(new Abschluss(cursor.getInt(0),
