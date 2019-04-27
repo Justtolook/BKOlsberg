@@ -5,13 +5,15 @@
     <string name="help_title">Hilfe</string>
     <string name="abfrage_title">Abfrage</string>
     <string name="bildungsgaenge_title">Bildungsgänge</string>
-    <string name="auswertung_title">Vorschlaege</string>
+    <string name="auswertung_title">Vorschläge</string>
 
     <string name="title_activity_display_favorites">DisplayFavoritesActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Frage...</string>
 
     <!-- Error -->
+    <string name="error">Error!</string>
+    <string name="error_no_match">Error: Keine Übereinstimmung</string>
     <string name="error_no_favorites">Error: Keine Favoriten ausgewählt!</string>
 
     <!-- Button -->

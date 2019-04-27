@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static com.example.hlamm.bkolsberg.MainActivity.USECASE_AUSWERTUNG;
+import static com.example.hlamm.bkolsberg.MainActivity.abschluesse;
 import static com.example.hlamm.bkolsberg.MainActivity.interessen;
 import static com.example.hlamm.bkolsberg.MainActivity.questions;
 
@@ -103,8 +105,14 @@ public class DisplayAbfrageActivity extends AppCompatActivity {
     }
 
     public void btn_send(View view) {
-        Intent intent = new Intent(this, DisplayAuswertungActivity.class);
+        Bundle b = new Bundle();
+        b.putString("usecase", USECASE_AUSWERTUNG);
+        Intent intent = new Intent (this, DisplayBildungsgangCardsActivity.class);
+        intent.putExtras(b);
         startActivity(intent);
+
+        //Intent intent = new Intent(this, DisplayAuswertungActivity.class);
+        //startActivity(intent);
     }
 
 
@@ -162,11 +170,13 @@ public class DisplayAbfrageActivity extends AppCompatActivity {
             /**
              * RadioButtons erstellen und mit Antworttext fuellen
              */
-            for(int index = 0; index < questions.get(position).getAnswerSize(); index++){
+            //or(int index = 0; index < questions.get(position).getAnswerSize(); index++){
+            for(int index = 0; index < abschluesse.size(); index++){
                 radioButtons.add(new RadioButton(getApplicationContext()));
                 radioButtons.get(index).setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                radioButtons.get(index).setId(index);
-                radioButtons.get(index).setText(questions.get(position).getAnswer(index));
+                radioButtons.get(index).setId(abschluesse.get(index).getId());   //soll nicht index sein, sondern die Abschluss ID
+                radioButtons.get(index).setText(abschluesse.get(index).getBezeichnung());
+                //radioButtons.get(index).setText(questions.get(position).getAnswer(index));
                 radioGroup.addView(radioButtons.get(index));
                 //Log.d("index: ", Integer.toString(index));
                 //Log.d("radioButton: ", Integer.toString(radioButtons.get(index).getId()));
@@ -177,6 +187,4 @@ public class DisplayAbfrageActivity extends AppCompatActivity {
 
         allowDataChange = true;
     }
-
-
 }
