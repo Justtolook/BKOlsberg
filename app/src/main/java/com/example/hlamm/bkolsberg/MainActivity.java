@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         else
         {
             myDb.update_exists();
-            Toast.makeText(getApplicationContext(), "Database updated", Toast.LENGTH_LONG).show();
         }
 
 
@@ -136,20 +135,25 @@ public class MainActivity extends AppCompatActivity {
     public void createQuestionObjects() {
         ArrayList<String> answer = new ArrayList();
 
-        answer.add(getString(R.string.q1_a1));
+        /*answer.add(getString(R.string.q1_a1));
         answer.add(getString(R.string.q1_a2));
         answer.add(getString(R.string.q1_a3));
+        */
         questions.add(new Question(getString(R.string.q1), new ArrayList<>(answer)));
         answer.clear();
 
+        /*
         answer.add(getString(R.string.q2_a1));
         answer.add(getString(R.string.q2_a2));
+        */
         questions.add(new Question(getString(R.string.q2), new ArrayList<>(answer)));
         answer.clear();
 
+        /*
         answer.add(getString(R.string.q3_a1));
         answer.add(getString(R.string.q3_a2));
         answer.add(getString(R.string.q3_a3));
+        */
         questions.add(new Question(getString(R.string.q3), new ArrayList<>(answer)));
         answer.clear();
 

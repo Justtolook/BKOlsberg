@@ -384,7 +384,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 newVersion=jo.getInt("Wert");                     //neuer Wert aus MySQL
             }
                 if (!(actualVersion == newVersion)) {
-                    Log.d("test",actualVersion+" "+newVersion);
+                    Log.d("Update_test",actualVersion+" "+newVersion);
                     onUpgrade(db, actualVersion, newVersion);
                 }
         } catch (JSONException e) {
