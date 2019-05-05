@@ -2,7 +2,7 @@
     <!-- Label -->
     <string name="app_name">BKOlsberg</string>
     <string name="favorites_title">Favoriten</string>
-    <string name="help_title">Hilfe</string>
+    <string name="help_title">Informationen</string>
     <string name="abfrage_title">Abfrage</string>
     <string name="bildungsgaenge_title">Bildungsgänge</string>
     <string name="auswertung_title">Vorschläge</string>
@@ -10,6 +10,12 @@
     <string name="title_activity_display_favorites">DisplayFavoritesActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Frage...</string>
+
+    <string name="label_bildungsgang_bezeichnung">Bezeichnung</string>
+    <string name="label_bildungsgang_dauer">Dauer</string>
+    <string name="label_bildungsgang_abschluss">Abschluss</string>
+    <string name="label_bildungsgang_benQualifikation">Benötigte Qualifikationen</string>
+    <string name="label_bildungsgang_beschreibung">Beschreibung</string>
 
     <!-- Error -->
     <string name="error">Error!</string>
@@ -26,6 +32,7 @@
 
     <string name="text_Auswertung">Folgende Bildungsgänge entsprechen deiner Auswahl:</string>
     <string name="open_in_web">Hier klicken für mehr Informationen</string>
+    <string name="help_noDataCollecting">Diese App sammelt weder persönliche noch annonyme Daten.</string>
 
     <string name="dauer">Dauer: %1$s Jahre</string>
     <string name="author">© 2019 Henrik Lammert, Marcel Lohoff und Christian Brockmann</string>
