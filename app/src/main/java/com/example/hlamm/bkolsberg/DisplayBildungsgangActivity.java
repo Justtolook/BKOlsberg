@@ -74,7 +74,8 @@ public class DisplayBildungsgangActivity extends AppCompatActivity {
     public void fillViews() {
         ArrayList<String> stringlist = new ArrayList<>();
         tv_Bezeichnung.setText(bildungsgaenge.get(index).getBezeichnung());
-        tv_Dauer.setText(String.valueOf(bildungsgaenge.get(index).getDauer()));
+        if(bildungsgaenge.get(index).getDauer() == 1) tv_Dauer.setText(String.valueOf(bildungsgaenge.get(index).getDauer()) + " Jahr");
+        else tv_Dauer.setText(String.valueOf(bildungsgaenge.get(index).getDauer()) + " Jahre");
         tv_kuerzel.setText(bildungsgaenge.get(index).getKuerzel());
         tv_Beschreibung.setText(bildungsgaenge.get(index).getBeschreibung());
 
@@ -87,7 +88,7 @@ public class DisplayBildungsgangActivity extends AppCompatActivity {
 
         //Zusatzqualifikation
         for(int i = 0; i < bildungsgaenge.get(index).getZusatzqualifikation().size(); i ++) {
-            stringlist.add(bildungsgaenge.get(index).getZusatzqualifikation().get(i).getBezeichnung());
+            if(!bildungsgaenge.get(index).getZusatzqualifikation().get(i).getBezeichnung().equals("Keine")) stringlist.add(bildungsgaenge.get(index).getZusatzqualifikation().get(i).getBezeichnung());
         }
 
         for(int i = 0; i < stringlist.size(); i++) {
@@ -106,7 +107,7 @@ public class DisplayBildungsgangActivity extends AppCompatActivity {
 
         //Zusatzqualifikation benoetigt
         for(int i = 0; i < bildungsgaenge.get(index).getZusatzqualifikationNeeded().size(); i ++) {
-            stringlist.add(bildungsgaenge.get(index).getZusatzqualifikationNeeded().get(i).getBezeichnung());
+            if(!bildungsgaenge.get(index).getZusatzqualifikationNeeded().get(i).getBezeichnung().equals("Keine")) stringlist.add(bildungsgaenge.get(index).getZusatzqualifikationNeeded().get(i).getBezeichnung());
         }
 
         for(int i = 0; i < stringlist.size(); i++) {
