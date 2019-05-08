@@ -94,4 +94,8 @@ public class DisplayBildungsgangCardsActivity extends AppCompatActivity {
         //Error-Message if user did not chose favorites
 
     }
+
+    public String getUsecase() {
+        return usecase;
+    }
 }

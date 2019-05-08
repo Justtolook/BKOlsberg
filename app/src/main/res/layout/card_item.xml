@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="175dp"
+    android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:background="@drawable/rounded_corners"
 
@@ -15,16 +15,15 @@
 
     <TextView
         android:id="@+id/bezeichnung"
-        android:layout_width="330dp"
-        android:layout_height="80dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="50dp"
         android:onClick="btn_details"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,7 +44,6 @@
 
     <Button
         android:id="@+id/btn_MarkAsFavorite"
-        android:elevation="6dp"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="8dp"
@@ -53,6 +51,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/ic_outline_star_border_24px"
+        android:elevation="6dp"
         android:onClick="btn_MarkAsFavorite"
         app:layout_constraintBottom_toTopOf="@+id/beschreibung"
         app:layout_constraintEnd_toEndOf="parent"

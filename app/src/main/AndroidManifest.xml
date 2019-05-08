@@ -31,7 +31,8 @@
             android:label="@string/help_title"
             android:parentActivityName=".MainActivity" />
 
-        <activity android:name=".DisplayBildungsgangActivity" />
+        <activity
+            android:name=".DisplayBildungsgangActivity"/>
         <activity
             android:name=".DisplayBildungsgangCardsActivity"
 

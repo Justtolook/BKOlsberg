@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -31,9 +32,21 @@ public class DisplayBildungsgangActivity extends AppCompatActivity {
         setContentView(R.layout.activity_display_bildungsgang);
         Bundle b = getIntent().getExtras();
         if(b != null) id = b.getInt("id");
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         index = searchBildungsgang(id);
         initViews();
         fillViews();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == android.R.id.home) this.finish();
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void initViews() {
