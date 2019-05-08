@@ -62,6 +62,20 @@ public class CardItemAdapter extends RecyclerView.Adapter<CardItemAdapter.myView
         }
     };
 
+    private View.OnClickListener onClickListenerDetailBeschreibung = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) v.getTag();
+            int position = viewHolder.getAdapterPosition();
+            Intent intent = new Intent(mContext, DisplayBildungsgangActivity.class);
+            Bundle b = new Bundle();
+            b.putInt("id", mData.get(position).getId());
+            intent.putExtras(b);
+            mContext.startActivity(intent);
+
+        }
+    };
+
 
     public CardItemAdapter(Context mContext, List<CardItem> mData) {
         this.mContext = mContext;
@@ -104,6 +118,8 @@ public class CardItemAdapter extends RecyclerView.Adapter<CardItemAdapter.myView
             tv_bezeichnung.setTag(this);
             tv_bezeichnung.setOnClickListener(onClickListenerDetail);
             tv_beschreibung = itemView.findViewById(R.id.beschreibung);
+            tv_beschreibung.setTag(this);
+            tv_beschreibung.setOnClickListener(onClickListenerDetailBeschreibung);
             btn_markAsFavorite = itemView.findViewById(R.id.btn_MarkAsFavorite);
             btn_markAsFavorite.setTag(this);
             btn_markAsFavorite.setOnClickListener(onClickListenerFav);
