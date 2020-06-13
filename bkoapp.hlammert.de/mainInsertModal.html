@@ -1,0 +1,159 @@
+<div class="modal fade insert-modal" tabindex="-1" role="dialog" aria-labelledby="modal-insert-education" aria-hidden="true">
+    <form method="post" action="utils/Bildungsgang/insertEducation.php">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Bildungsgang hinzufügen</h5>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-8"><h5>Bezeichnung</h5></div>
+                            <div class="col"><h5>Kürzel</h5></div>
+                            <div class="col"><h5>Dauer</h5></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-8"><input type="text" placeholder="Bezeichnung" name="insertDescription" style="width: 100%" required></div>
+                            <div class="col"><input type="text" placeholder="Kürzel" name="insertKuerzel" style="width: 100%" required></div>
+                            <div class="col"><input type="number" placeholder="Dauer" value="3.0" step="0.1" min="0" max="5" name="insertDuration" style="width: 100%" required></div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col"><h5>Beschreibung</h5></div>
+                        </div>
+                        <div class="row">
+                            <div class="col"><textarea placeholder="Beschreibung" name="insertLongDescription" row="10" cols="70" style="width: 100%" required></textarea></div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col"><h5>Interessen</h5></div>
+                            <div class="col"><h5>Erreichbare Abschlüsse</h5></div>
+                            <div class="col"><h5>Erreichbare Zusatzqualifikationen</h5></div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <select name="interests[]" size="6" multiple="true" required style="width: 100%">
+                                    <?php
+                                            foreach ($alleInteressen as $interest)
+                                            {
+                                                $id = $interest->getID();
+                                                $description = $interest->getDescription();
+
+                                    echo "<option value='" .$id. "'>" .$description. "</option>\n";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <select name="degrees[]" size="6" multiple="true" required style="width: 100%">
+                                    <?php
+                                        foreach ($alleAbschlüsse as $degree)
+                                        {
+                                            $id = $degree->getID();
+                                            $description = $degree->getDescription();
+                                            $level = $degree->getLevel();
+
+                                            echo "<option value='" .$id. "'>" .$description. "</option>\n";
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <select name="additionalQualification[]" size="6" multiple="true" required style="width: 100%">
+                                    <?php
+                                        foreach($alleZusatzqualifikationen as $qualification)
+                                        {
+                                            $id = $qualification->getID();
+                                            $description = $qualification->getDescription();
+
+                                            echo "<option value='" .$id. "'>" .$description. "</option>\n";
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col"><h5>Bedingungen</h5></div>
+                        </div>
+                        <div class="row">
+                            <div class="col"><h6>Anzahl der Bedingungen: </h6></div>
+                            <div class="col"><input type="number" name="numberConditions" id="numberConditions_Insert"
+                                                    onchange="conditionNumberChanged(this.value)" required placeholder="1" value="1" min="1" max="5" style="width: 100%"></div>
+                        </div>
+
+                        <script>
+                            window.onload = conditionNumberChanged(1);
+                        </script>
+
+                        <br>
+
+                        <div class="row">
+                            <div class="col"><h6>Benötigter Abschluss</h6></div>
+                            <div class="col"><h6>Benötigte Zusatzqualifikation</h6></div>
+                        </div>
+
+                        <br>
+
+                        <?php //Dynamicly Generate 5 Select Views for 5 Differnt Conditions
+                            for ($x = 0; $x < 5; $x++)
+                            {
+                                ?>
+                        <div class="row Condition_<?php echo $x+1; ?>">
+                            <div class="col">
+                                <select name="condition_<?php echo $x+1; ?>_education"
+                                        class="condition_<?php echo $x+1; ?>_education form-control" multiple="false" style="width: 100%" required size="1">
+                                    <?php
+                                        foreach($alleAbschlüsse as $degree)
+                                        {
+                                            $id = $degree->getID();
+                                            $description = $degree->getDescription();
+
+                                            echo "<option value='" .$id. "'>" .$description. "</option>\n";
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <select name="condition_<?php echo $x+1; ?>_qualification"
+                                        class="condition_<?php echo $x+1; ?>_qualification form-control" multiple="false" style="width: 100%" required size="1">
+                                    <?php
+                                        foreach($alleZusatzqualifikationen as $qualification)
+                                        {
+                                            $id = $qualification->getID();
+                                            $description = $qualification->getDescription();
+
+                                            echo "<option value='" .$id. "'>" .$description. "</option>\n";
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <?php
+                            }
+                            ?>
+                        <hr>
+                        <div class="row">
+                            <div class="col"><h5>Link zum Bildungsgang</h5></div>
+                        </div>
+                        <div class="row">
+                            <div class="col"><input type="text" placeholder="URL" name="insertURL"
+                                 style="width: 100%" required></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                    <button type="submit" class="btn btn-primary">Speichern und Schließen</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

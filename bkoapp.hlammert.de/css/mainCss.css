@@ -1,0 +1,42 @@
+table
+{
+    border: 1px solid black;
+}
+
+div#content
+{
+    margin: 20px;
+}
+
+div.education
+{
+    background-color: #cecece;
+    width: 100%;
+    margin: 10px;
+
+    border-radius: 10px;
+    border-style: none;
+
+    padding: 10px;
+}
+
+div.empty-education
+{
+    visibility: hidden;
+}
+
+button.btn-lower-right
+{
+
+}
+
+
+input.input-form
+{
+    width: 100%;
+}
+
+select.select-form
+{
+    width: 100%;
+}
